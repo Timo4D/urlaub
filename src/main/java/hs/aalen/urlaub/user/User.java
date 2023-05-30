@@ -1,10 +1,13 @@
 package hs.aalen.urlaub.user;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.Entity;
+
 //import needed for Date-datatype
 import java.sql.Date;
-
+@Entity
 public class User {
-
+@Id
   private long id;
   private String name;
   private String surname;
