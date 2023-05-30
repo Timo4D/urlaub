@@ -6,28 +6,30 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-//import needed for Date-datatype
-import java.sql.Date;
+import java.sql.Date; //import needed for Date-datatype
 import java.util.List;
 
 @Entity
 public class Vacation {
 
+  //-----------global declarations--------------------------------------
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private long id; //primary key for Vacation-class
 
   private String title;
   private int timePeriod; //time period in days; for example 14 days
-  //maybe useful
-  private Date startDate;
-  private Date endDate;
+  private Date startDate; //maybe useful
+  private Date endDate; //maybe useful
 
-  //default constructor
-
+  //--------------------------------------------------------------------
+  //--------entity-relation-annotation----------------------------------
   @OneToMany(mappedBy = "vacation")
   private List<VacationWish> vacationWishes;
 
+  //-----------------------------------------------------
+  //---------constructors-----------------------------------
+  //default constructor
   public Vacation() {}
 
   //constructor with variables
@@ -45,7 +47,8 @@ public class Vacation {
     this.endDate = endDate;
   }
 
-  //Getters and Setters
+  //-----------------------------------------------------------
+  //----------Getters and Setters------------------------------
   public long getId() {
     return id;
   }
@@ -85,4 +88,5 @@ public class Vacation {
   public void setEndDate(Date endDate) {
     this.endDate = endDate;
   }
+  //--------------------------------------------------------
 }

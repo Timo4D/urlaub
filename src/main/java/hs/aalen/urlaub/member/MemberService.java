@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberService {
 
+  //----connection to MemberRepository class------------------
   @Autowired
   private MemberRepository memberRepository;
 
+  //----------------------------------------------------------
   public List<Member> getMemberList() {
     ArrayList<Member> memberList = new ArrayList<>();
     Iterator<Member> iterator = memberRepository.findAll().iterator();

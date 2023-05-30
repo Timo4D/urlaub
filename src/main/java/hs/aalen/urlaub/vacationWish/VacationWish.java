@@ -1,7 +1,6 @@
 package hs.aalen.urlaub.vacationWish;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.vacation.Vacation;
 import jakarta.persistence.Entity;
@@ -16,22 +15,27 @@ import java.util.List;
 @Entity
 public class VacationWish {
 
+  //-----------global declarations--------------------------------------
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private long id; //primary key for VacationWish-class
 
   private String location;
   private String description;
 
+  //--------------------------------------------------------------------
+  //--------entity-relation-annotation----------------------------------
   @ManyToOne
   @JoinColumn(name = "vacation_id")
   private Vacation vacation;
 
-  //default constructor
   @ManyToMany(mappedBy = "favorite")
   @JsonIgnore //Otherwise problems with recursion in json
   private List<Member> memberFavorite;
 
+  //-----------------------------------------------------
+  //---------constructors-----------------------------------
+  //default constructor
   public VacationWish() {}
 
   //constructor with variables
@@ -41,7 +45,8 @@ public class VacationWish {
     this.description = description;
   }
 
-  //Getters and Setters
+  //----------------------------------------------------
+  //--------------Getters and Setters----------------------------------
   public long getId() {
     return id;
   }
@@ -65,4 +70,5 @@ public class VacationWish {
   public void setDescription(String description) {
     this.description = description;
   }
+  //---------------------------------------------------------------
 }

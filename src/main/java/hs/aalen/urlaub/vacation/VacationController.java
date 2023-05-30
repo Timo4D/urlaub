@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VacationController {
 
+  //----connection to VacationService class------------------
   @Autowired
   VacationService vacationService;
+
+  //-------------------------------------------------------
+  //-------URL mapping-------------------------------------
 
   @GetMapping("/vacation")
   public List<Vacation> getVacationList() {
@@ -43,4 +47,5 @@ public class VacationController {
   public void deleteVacation(@PathVariable long id) {
     vacationService.deleteVacation(id);
   }
+  //------------------------------------------------------
 }

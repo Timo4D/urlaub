@@ -6,27 +6,31 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-//import needed for Date-datatype
-import java.sql.Date;
+import java.sql.Date; //import needed for Date-datatype
 import java.util.List;
 
 @Entity
 public class Member {
 
+  //-----------global declarations--------------------------------------
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+  private long id; //primary key for Member-class
 
   private String name;
   private String surname;
   private Date birthdate;
-  //mail-address could be helpful/ necessary for login reasons?
-  private String email;
+  private String email; //mail-address could be helpful/ necessary for login reasons?
 
-  //default constructor
+  //--------------------------------------------------------------------
+
+  //--------entity-relation-annotation----------------------------------
   @ManyToMany
   private List<VacationWish> favorite;
 
+  //------------------------------------------------------------------
+  //---------constructors-----------------------------------
+  //default constructor
   public Member() {}
 
   //constructor with variables
@@ -44,6 +48,7 @@ public class Member {
     this.email = email;
   }
 
+  //--------------------------------------------------
   //Relationship N-to-M --> favorite;
   public List<VacationWish> getFavoriteVacationWish() {
     return favorite;
@@ -53,9 +58,9 @@ public class Member {
     this.favorite.add(v);
   }
 
-  //-------
+  //-------------------------------------------------------
 
-  //Getters and Setters
+  //------------Getters and Setters--------------------
   public long getId() {
     return id;
   }
@@ -95,4 +100,5 @@ public class Member {
   public void setEmail(String email) {
     this.email = email;
   }
+  //----------------------------------------------------
 }

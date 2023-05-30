@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MemberController {
 
+  //----connection to MemberService class------------------
   @Autowired
   MemberService memberService;
 
+  //-------------------------------------------------------
+  //-------URL mapping-------------------------------------
   @GetMapping("/member")
   public List<Member> getMemberList() {
     return memberService.getMemberList();
@@ -40,4 +43,5 @@ public class MemberController {
   public void deleteMember(@PathVariable long id) {
     memberService.deleteMember(id);
   }
+  //-----------------------------------------------------------
 }

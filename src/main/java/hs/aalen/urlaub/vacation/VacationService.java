@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class VacationService {
 
+  //----connection to VacationRepository class------------------
   @Autowired
   VacationRepository vacationRepository;
 
+  //---------------------------------------------------------
   public List<Vacation> getVacationList() {
     ArrayList<Vacation> vacationList = new ArrayList<>();
     Iterator<Vacation> iterator = vacationRepository.findAll().iterator();
