@@ -1,4 +1,4 @@
-package hs.aalen.vacation.vacation;
+package hs.aalen.urlaub.vacation;
 
 public class VacationService {
     
