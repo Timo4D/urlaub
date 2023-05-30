@@ -1,4 +1,4 @@
-package hs.aalen.vacationWish;
+package hs.aalen.vacation.vacationWish;
 
 public class VacationWishController {
     

@@ -1,4 +1,4 @@
-package hs.aalen.user;
+package hs.aalen.vacation.user;
 
 public class UserRepository {
     
