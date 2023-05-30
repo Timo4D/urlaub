@@ -1,4 +1,4 @@
-package hs.aalen.urlaub.user;
+package hs.aalen.urlaub.member;
 
 import hs.aalen.urlaub.vacationWish.VacationWish;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
-public class User {
+public class Member {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,10 +27,10 @@ public class User {
   @ManyToMany
   private List<VacationWish> favorite;
 
-  public User() {}
+  public Member() {}
 
   //constructor with variables
-  public User(
+  public Member(
     long id,
     String name,
     String surname,

@@ -1,7 +1,8 @@
 package hs.aalen.urlaub.vacationWish;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import hs.aalen.urlaub.user.User;
+
+import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.vacation.Vacation;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class VacationWish {
   //default constructor
   @ManyToMany(mappedBy = "favorite")
   @JsonIgnore //Otherwise problems with recursion in json
-  private List<User> userFavorite;
+  private List<Member> memberFavorite;
 
   public VacationWish() {}
 
