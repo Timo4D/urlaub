@@ -1,11 +1,16 @@
 package hs.aalen.urlaub.vacation;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 //import needed for Date-datatype
 import java.sql.Date;
 
+@Entity
 public class Vacation {
 
+  @Id
   private long id;
+
   private String title;
   private int timePeriod; //time period in days; for example 14 days
   //maybe useful
