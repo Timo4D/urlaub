@@ -1,18 +1,36 @@
 package hs.aalen.urlaub.vacationWish;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import hs.aalen.urlaub.user.User;
+import hs.aalen.urlaub.vacation.Vacation;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import java.util.List;
 
 @Entity
 public class VacationWish {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   private String location;
   private String description;
 
+  @ManyToOne
+  @JoinColumn(name = "vacation_id")
+  private Vacation vacation;
+
   //default constructor
+  @ManyToMany(mappedBy = "favorite")
+  @JsonIgnore //Otherwise problems with recursion in json
+  private List<User> userFavorite;
+
   public VacationWish() {}
 
   //constructor with variables

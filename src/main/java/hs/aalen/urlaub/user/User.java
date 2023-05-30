@@ -1,14 +1,20 @@
 package hs.aalen.urlaub.user;
 
+import hs.aalen.urlaub.vacationWish.VacationWish;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 //import needed for Date-datatype
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 public class User {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
   private String name;
@@ -18,6 +24,9 @@ public class User {
   private String email;
 
   //default constructor
+  @ManyToMany
+  private List<VacationWish> favorite;
+
   public User() {}
 
   //constructor with variables
@@ -34,6 +43,17 @@ public class User {
     this.birthdate = birthdate;
     this.email = email;
   }
+
+  //Relationship N-to-M --> favorite;
+  public List<VacationWish> getFavoriteVacationWish() {
+    return favorite;
+  }
+
+  public void addVacationWishToFavorites(VacationWish v) {
+    this.favorite.add(v);
+  }
+
+  //-------
 
   //Getters and Setters
   public long getId() {

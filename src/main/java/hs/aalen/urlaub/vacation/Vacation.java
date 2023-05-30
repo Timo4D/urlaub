@@ -1,14 +1,20 @@
 package hs.aalen.urlaub.vacation;
 
+import hs.aalen.urlaub.vacationWish.VacationWish;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 //import needed for Date-datatype
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 public class Vacation {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   private String title;
@@ -18,6 +24,10 @@ public class Vacation {
   private Date endDate;
 
   //default constructor
+
+  @OneToMany(mappedBy = "vacation")
+  private List<VacationWish> vacationWishes;
+
   public Vacation() {}
 
   //constructor with variables
