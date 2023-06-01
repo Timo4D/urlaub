@@ -20,22 +20,22 @@ public class VacationController {
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
 
-  @GetMapping("/vacation")
+  @GetMapping("/api/vacation")
   public List<Vacation> getVacationList() {
     return vacationService.getVacationList();
   }
 
-  @GetMapping("/vacation/{id}")
+  @GetMapping("/api/vacation/{id}")
   public Vacation getVacation(@PathVariable long id) {
     return vacationService.getVacation(id);
   }
 
-  @PostMapping("/vacation")
+  @PostMapping("/api/vacation")
   public void addVacation(@RequestBody Vacation vacation) {
     vacationService.addVacation(vacation);
   }
 
-  @PutMapping("/vacation/{id}")
+  @PutMapping("/api/vacation/{id}")
   public void updateVacation(
     @PathVariable long id,
     @RequestBody Vacation vacation
@@ -43,7 +43,7 @@ public class VacationController {
     vacationService.updateVacation(id, vacation);
   }
 
-  @DeleteMapping("/vacation/{id}")
+  @DeleteMapping("/api/vacation/{id}")
   public void deleteVacation(@PathVariable long id) {
     vacationService.deleteVacation(id);
   }
