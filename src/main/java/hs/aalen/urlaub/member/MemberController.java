@@ -42,7 +42,7 @@ public class MemberController {
   //-----------------------------------------------------------
 
   //-------Routes for Thymleaf-------------------------------------
-  @GetMapping("/members")
+  @GetMapping("/member")
   public ModelAndView showMember() {
     ModelAndView mav = new ModelAndView("list-member");
     List<Member> list = memberService.getMemberList();
@@ -61,7 +61,7 @@ public class MemberController {
   @PostMapping("/saveMember")
   public RedirectView saveMember(@ModelAttribute Member member) {
     memberService.addMember(member);
-    return new RedirectView("/members");
+    return new RedirectView("/member");
   }
 
   @GetMapping("/updateMember")
@@ -75,7 +75,7 @@ public class MemberController {
   @GetMapping("/deleteMember")
   public RedirectView deleteMember(@RequestParam Long memberId) {
     memberService.deleteMember(memberId);
-    return new RedirectView("/members");
+    return new RedirectView("/member");
   }
   //-----------------------------------------------------------
 }
