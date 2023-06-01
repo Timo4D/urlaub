@@ -58,6 +58,10 @@ public class Member {
     this.favorite.add(v);
   }
 
+  public void setVacationWishToFavorites(List<VacationWish> list) {
+    this.favorite = list;
+  }
+
   //-------------------------------------------------------
 
   //------------Getters and Setters--------------------
