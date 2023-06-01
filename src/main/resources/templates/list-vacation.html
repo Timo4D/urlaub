@@ -2,10 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Member List</title>
-
+    <title>Title</title>
     <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
@@ -16,44 +14,44 @@
 
 <div th:replace="fragments/navbar ::navbar"></div>
 
-<div class="container">
-    <h2>Member List</h2>
-    <a th:href="@{/addMember}" class="btn-primary btn mb-2">Add Member</a>
-
+<div class="container mt-4">
+    <h2>Vacation List</h2>
+    <a th:href="@{/addVacation}" class="btn btn-primary mb-2">Add Vacation</a>
     <hr>
-    <table class="table table-bordered table-striped" id="member-table">
+
+    <table class="table table-striped table-bordered" id="vacation-table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Birthdate</th>
-            <th>E-mail</th>
+            <th>Title</th>
+            <th>Time Period</th>
+            <th>startDate</th>
+            <th>endDate</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="member: ${members}">
-            <td th:text="${member.name}"></td>
-            <td th:text="${member.surname}"></td>
-            <td th:text="${member.birthdate}"></td>
-            <td th:text="${member.email}"></td>
+        <tr th:each="vacation : ${vacations}">
+            <td th:text="${vacation.title}"></td>
+            <td th:text="${vacation.timePeriod}"></td>
+            <td th:text="${vacation.startDate}"></td>
+            <td th:text="${vacation.endDate}"></td>
             <td>
-                <a th:href="@{/updateMember(memberId=${member.id})}" class="btn btn-info">Update</a>
-                <a th:href="@{/deleteMember(memberId=${member.id})}" class="btn btn-danger ml-2">Delete</a>
+                <a th:href="@{/updateVacation(vacationId=${vacation.id})}" class="btn btn-info">Update</a>
+                <a th:href="@{/deleteVacation(vacationId=${vacation.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
+
 </div>
 
-<div th:replace="fragments/footer ::footer"></div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#member-table").DataTable({
+        $("#vacation-table").DataTable({
             "aoColumnDefs": [{
                 "bSortable": false,
                 "aTargets": [-1]
@@ -61,6 +59,5 @@
         })
     })
 </script>
-
 </body>
 </html>
