@@ -2,13 +2,9 @@ package hs.aalen.urlaub.vacationWish;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 public class VacationWishController {
@@ -47,5 +43,39 @@ public class VacationWishController {
     vacationWishService.deleteVacationWish(id);
   }
   //------------------------------------------------------
+  //-------Routes for Thymleaf-------------------------------------
+  @GetMapping("/wish")
+  public ModelAndView showVacationWish() {
+    ModelAndView mav = new ModelAndView("lsit-vacationWish");
+    mav.addObject("wishes", getVacationWishList());
+    return mav;
+  }
 
+  @GetMapping("/addWish")
+  public ModelAndView addWish() {
+    ModelAndView mav = new ModelAndView("add-wish-form");
+    VacationWish newWish = new VacationWish();
+    mav.addObject("wish", newWish);
+    return mav;
+  }
+
+  @PostMapping("/saveWish")
+  public RedirectView saveWish(@ModelAttribute VacationWish wish) {
+    addVacationWish(wish);
+    return new RedirectView("/wish");
+  }
+
+  @GetMapping("/updateWish")
+  public ModelAndView updateWish(@RequestParam Long wishId) {
+    ModelAndView mav = new ModelAndView("add-wish-form");
+    mav.addObject("wish", getVacationWish(wishId));
+    return mav;
+  }
+
+  @GetMapping("/deleteWish")
+  public RedirectView deleteWish(@RequestParam Long wishId) {
+    deleteVacationWish(wishId);
+    return new RedirectView("/wish");
+  }
+  //------------------------------------------------------
 }
