@@ -1,6 +1,8 @@
 package hs.aalen.urlaub.member;
 
 import java.util.List;
+
+import hs.aalen.urlaub.vacationWish.VacationWishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +14,9 @@ public class MemberController {
   //----connection to MemberService class------------------
   @Autowired
   MemberService memberService;
+
+  @Autowired
+  VacationWishService wishService;
 
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
@@ -54,6 +59,7 @@ public class MemberController {
   public ModelAndView addMember() {
     ModelAndView mav = new ModelAndView("add-member-form");
     Member newMember = new Member();
+    mav.addObject("wishes", wishService.getVacationWishList());
     mav.addObject("member", newMember);
     return mav;
   }
