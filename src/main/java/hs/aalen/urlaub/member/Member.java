@@ -21,6 +21,7 @@ public class Member {
   private String surname;
   private Date birthdate;
   private String email; //mail-address could be helpful/ necessary for login reasons?
+  private String password; //for member login
 
   //--------------------------------------------------------------------
 
@@ -39,13 +40,15 @@ public class Member {
     String name,
     String surname,
     Date birthdate,
-    String email
+    String email,
+    String password
   ) {
     this.id = id;
     this.name = name;
     this.surname = surname;
     this.birthdate = birthdate;
     this.email = email;
+    this.password = password;
   }
 
   //--------------------------------------------------
@@ -104,5 +107,13 @@ public class Member {
   public void setEmail(String email) {
     this.email = email;
   }
+
+  public String getPassword() {
+    return password;
+}
+
+public void setPassword(String password) {
+    this.password = password;
+}
   //----------------------------------------------------
 }
