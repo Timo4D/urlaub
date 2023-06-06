@@ -18,19 +18,19 @@ public class AuthController {
 
     private MemberServiceInterface memberServiceInterface;
 
-    public AuthController(MemberServiceInterface memberServiceInterface){
+    public AuthController(MemberServiceInterface memberServiceInterface) {
         this.memberServiceInterface = memberServiceInterface;
     }
 
     // handler method to handle home page request
     @GetMapping("/index")
-    public String home(){
+    public String home() {
         return "index";
     }
 
     // handler method to handle user registration form request
     @GetMapping("/register")
-    public String showRegistrationForm(Model model){
+    public String showRegistrationForm(Model model) {
         // create model object to store form data
         MemberDto member = new MemberDto();
         model.addAttribute("member", member);
@@ -41,15 +41,15 @@ public class AuthController {
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("member") MemberDto memberDto,
                                BindingResult result,
-                               Model model){
+                               Model model) {
         Member existingMember = memberServiceInterface.findMemberByEmail(memberDto.getEmail());
 
-        if(existingMember != null && existingMember.getEmail() != null && !existingMember.getEmail().isEmpty()){
+        if (existingMember != null && existingMember.getEmail() != null && !existingMember.getEmail().isEmpty()) {
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         }
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("member", memberDto);
             return "/register";
         }
@@ -60,7 +60,7 @@ public class AuthController {
 
     // handler method to handle list of users
     @GetMapping("/members")
-    public String members(Model model){
+    public String members(Model model) {
         List<MemberDto> members = memberServiceInterface.findAllMembers();
         model.addAttribute("members", members);
         return "members";
@@ -68,7 +68,7 @@ public class AuthController {
 
     // handler method to handle login request
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 }

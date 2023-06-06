@@ -15,12 +15,10 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 
-
 @Service
 public class CustomMemberDetailsService implements UserDetailsService {
-    
-    private MemberRepository memberRepository;
 
+    private MemberRepository memberRepository;
 
     public CustomMemberDetailsService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -34,13 +32,13 @@ public class CustomMemberDetailsService implements UserDetailsService {
             return new org.springframework.security.core.userdetails.User(member.getEmail(),
                     member.getPassword(),
                     mapRolesToAuthorities(member.getRoles()));
-        }else{
+        } else {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
     }
 
-    private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
-        Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+        Collection<? extends GrantedAuthority> mapRoles = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
         return mapRoles;

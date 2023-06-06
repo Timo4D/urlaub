@@ -21,12 +21,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SpringSecurity {
 
 
-    
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -37,6 +36,7 @@ public class SpringSecurity {
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/members").hasRole("ADMIN")
+                                .requestMatchers("/").permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
