@@ -42,6 +42,12 @@ public class VacationWishController {
   public void deleteVacationWish(@PathVariable long id) {
     vacationWishService.deleteVacationWish(id);
   }
+
+  @GetMapping("/api/wishToVacation/{vacationId}")
+  public List<VacationWish> getVacationWishListToVacation(@PathVariable Long vacationId) {
+    //TODO: Implementation
+    return null;
+  }
   //------------------------------------------------------
   //-------Routes for Thymleaf-------------------------------------
   @GetMapping("/wish")
@@ -76,6 +82,13 @@ public class VacationWishController {
   public RedirectView deleteWish(@RequestParam Long wishId) {
     deleteVacationWish(wishId);
     return new RedirectView("/wish");
+  }
+
+  @GetMapping("/vote/{vacationId}")
+  public ModelAndView vote(@RequestParam long vacationId) {
+    ModelAndView mav = new ModelAndView("vote");
+    mav.addObject("wishes", getVacationWishListToVacation(vacationId));
+    return mav;
   }
   //------------------------------------------------------
 }

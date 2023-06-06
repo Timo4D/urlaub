@@ -22,22 +22,11 @@
     ></script>
   </head>
   <body>
+
+  <div th:replace="fragments/navbar"></div>
+
     <div class="container">
-      <h2>Vote for your Vacation</h2>
-      <div class="dropdown">
-        <button
-          class="btn btn-primary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Dropdown button
-        </button>
-        <ul class="dropdown-menu">
-          <!-- For Each active Vacation in DB -->
-          <li><a class="dropdown-item" href="#">Action</a></li>
-        </ul>
-      </div>
+      <h2 th:text="Vote for ${vacation.title}"></h2>
       <hr />
       <h3>Wishes</h3>
       <!-- Load All Wishes that belong to that Vacation and sort them  -->
@@ -52,7 +41,7 @@
         </thead>
         <tbody>
           <tr th:each="wish: ${wishes}">
-            <td th:text="${wish.score}"></td>
+            <td th:text="score"></td>
             <td>
               <a class="btn btn-primary">Like</a>
               <a class="btn btn-secondary">Dislike</a>
@@ -62,8 +51,11 @@
           </tr>
         </tbody>
       </table>
-      <a class="btn btn-primary">Submit Wishes</a>
+      <a class="btn btn-primary mb-2">Submit Wishes</a>
     </div>
+
+  <div th:replace="fragments/footer"></div>
+
     <script
       src="https://code.jquery.com/jquery-3.7.0.min.js"
       integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
@@ -76,7 +68,7 @@
           aoColumnDefs: [
             {
               bSortable: false,
-              aTargets: [-1],
+              aTargets: [-3],
             },
           ],
         });
