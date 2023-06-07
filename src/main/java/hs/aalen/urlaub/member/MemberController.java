@@ -9,7 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
+@RequestMapping("/api/members")
 public class MemberController {
+
+  private final MemberRepository memberRepository;
+
+  public MemberController(MemberRepository memberRepository){
+
+    this.memberRepository = memberRepository;
+  }
 
   //----connection to MemberService class------------------
   @Autowired
@@ -20,13 +28,25 @@ public class MemberController {
 
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
+
+@GetMapping
+public Iterable<Member> findAll(){
+  return memberRepository.findAll();
+}
+
+@GetMapping("/{id}")
+public Member findById(@PathVariable("id") Member member){
+  return member;
+}
+
+
   @GetMapping("/api/member")
   public List<Member> getMemberList() {
     return memberService.getMemberList();
   }
 
   @GetMapping("/api/member/{id}")
-  public Member getMember(@PathVariable long id) {
+  public Member getMember(@PathVariable Long id) {
     return memberService.getMember(id);
   }
 

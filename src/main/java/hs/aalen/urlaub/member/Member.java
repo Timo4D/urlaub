@@ -30,6 +30,7 @@ public class Member {
   private Date birthdate;
   private String email; //mail-address could be helpful/ necessary for login reasons?
   private String password; //for member login
+  private String username;
 
   
   
@@ -52,7 +53,8 @@ public class Member {
     String surname,
     Date birthdate,
     String email,
-    String password
+    String password,
+    String username
   
   ) {
     this.id = id;
@@ -61,6 +63,7 @@ public class Member {
     this.birthdate = birthdate;
     this.email = email;
     this.password = password;
+    this.username = username;
     
   }
 
@@ -134,5 +137,15 @@ public class Member {
   public void setFavorite(List<VacationWish> favorite) {
     this.favorite = favorite;
   }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  
   //----------------------------------------------------
 }
