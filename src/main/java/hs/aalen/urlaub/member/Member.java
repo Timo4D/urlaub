@@ -1,19 +1,12 @@
 package hs.aalen.urlaub.member;
 
 import hs.aalen.urlaub.vacationWish.VacationWish;
-import jakarta.persistence.*;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import java.sql.Date; //import needed for Date-datatype
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -29,6 +22,7 @@ public class Member {
   private Date birthdate;
   private String email; //mail-address could be helpful/ necessary for login reasons?
   private String password; //for member login
+  private String roles;
 
   //--------------------------------------------------------------------
 
@@ -48,7 +42,8 @@ public class Member {
     String surname,
     Date birthdate,
     String email,
-    String password
+    String password,
+    String roles
   ) {
     this.id = id;
     this.name = name;
@@ -56,6 +51,7 @@ public class Member {
     this.birthdate = birthdate;
     this.email = email;
     this.password = password;
+    this.roles = roles;
   }
 
   //--------------------------------------------------
@@ -126,5 +122,32 @@ public class Member {
   public void setFavorite(List<VacationWish> favorite) {
     this.favorite = favorite;
   }
+
+  public String getRoles() {
+    return roles;
+  }
+
+  public void setRoles(String roles) {
+    this.roles = roles;
+  }
+
+  public List<VacationWish> getFavorite() {
+    return favorite;
+  }
+
+  @Override
+  public String toString() {
+    return "Member{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", surname='" + surname + '\'' +
+            ", birthdate=" + birthdate +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", roles='" + roles + '\'' +
+            ", favorite=" + favorite +
+            '}';
+  }
+
   //----------------------------------------------------
 }

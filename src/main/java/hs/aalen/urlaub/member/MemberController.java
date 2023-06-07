@@ -8,15 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
-@RequestMapping("/api/members")
 public class MemberController {
-
-  private final MemberRepository memberRepository;
-
-  public MemberController(MemberRepository memberRepository) {
-    this.memberRepository = memberRepository;
-  }
-
   //----connection to MemberService class------------------
   @Autowired
   MemberService memberService;
@@ -26,17 +18,6 @@ public class MemberController {
 
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
-
-  @GetMapping
-  public Iterable<Member> findAll() {
-    return memberRepository.findAll();
-  }
-
-  @GetMapping("/{id}")
-  public Member findById(@PathVariable("id") Member member) {
-    return member;
-  }
-
   @GetMapping("/api/member")
   public List<Member> getMemberList() {
     return memberService.getMemberList();
@@ -61,7 +42,6 @@ public class MemberController {
   public void deleteMember(@PathVariable long id) {
     memberService.deleteMember(id);
   }
-
   //-----------------------------------------------------------
 
   //-------Routes for Thymleaf-------------------------------------

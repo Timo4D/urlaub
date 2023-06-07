@@ -1,33 +1,28 @@
-package hs.aalen.urlaub.member.security.MemberDetailsService;
+package hs.aalen.urlaub.security;
 
 
 
 
-import org.springframework.security.core.authority.AuthorityUtils;
+import hs.aalen.urlaub.member.MemberRepository;
+import hs.aalen.urlaub.member.SecurityMember;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import hs.aalen.urlaub.member.security.model.SecurityUser;
-import hs.aalen.urlaub.member.security.repository.UserRepository;
-
-import java.util.Optional;
-
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
-    public JpaUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository
-                .findByUsername(username)
-                .map(SecurityUser::new)
+        return memberRepository
+                .findByEmail(username)
+                .map(SecurityMember::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
     }
 }

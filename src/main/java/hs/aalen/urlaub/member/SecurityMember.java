@@ -1,4 +1,4 @@
-package hs.aalen.urlaub.member.security.model;
+package hs.aalen.urlaub.member;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,31 +7,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class SecurityUser implements UserDetails {
+public class SecurityMember implements UserDetails {
 
-    private final User user;
+    private final Member member;
 
-    public SecurityUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String getUsername() {
-        return user.getUsername();
-    }
-
-    @Override
-    public String getPassword() {
-        return user.getPassword();
+    public SecurityMember(Member member) {
+        this.member = member;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(user
+        return Arrays.stream(member
                 .getRoles()
                 .split(","))
                 .map(SimpleGrantedAuthority::new)
                 .toList();
+    }
+
+    @Override
+    public String getPassword() {
+        return member.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return member.getEmail();
     }
 
     @Override
