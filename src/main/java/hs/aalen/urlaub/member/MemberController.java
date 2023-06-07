@@ -1,8 +1,7 @@
 package hs.aalen.urlaub.member;
 
-import java.util.List;
-
 import hs.aalen.urlaub.vacationWish.VacationWishService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,8 +13,7 @@ public class MemberController {
 
   private final MemberRepository memberRepository;
 
-  public MemberController(MemberRepository memberRepository){
-
+  public MemberController(MemberRepository memberRepository) {
     this.memberRepository = memberRepository;
   }
 
@@ -29,16 +27,15 @@ public class MemberController {
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
 
-@GetMapping
-public Iterable<Member> findAll(){
-  return memberRepository.findAll();
-}
+  @GetMapping
+  public Iterable<Member> findAll() {
+    return memberRepository.findAll();
+  }
 
-@GetMapping("/{id}")
-public Member findById(@PathVariable("id") Member member){
-  return member;
-}
-
+  @GetMapping("/{id}")
+  public Member findById(@PathVariable("id") Member member) {
+    return member;
+  }
 
   @GetMapping("/api/member")
   public List<Member> getMemberList() {
@@ -64,6 +61,7 @@ public Member findById(@PathVariable("id") Member member){
   public void deleteMember(@PathVariable long id) {
     memberService.deleteMember(id);
   }
+
   //-----------------------------------------------------------
 
   //-------Routes for Thymleaf-------------------------------------

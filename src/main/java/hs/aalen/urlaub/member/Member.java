@@ -1,21 +1,20 @@
 package hs.aalen.urlaub.member;
 
-
 import hs.aalen.urlaub.vacationWish.VacationWish;
+import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import java.sql.Date; //import needed for Date-datatype
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import jakarta.persistence.*;
 
 @Entity
 public class Member {
@@ -30,10 +29,6 @@ public class Member {
   private Date birthdate;
   private String email; //mail-address could be helpful/ necessary for login reasons?
   private String password; //for member login
-  private String username;
-
-  
-  
 
   //--------------------------------------------------------------------
 
@@ -53,9 +48,7 @@ public class Member {
     String surname,
     Date birthdate,
     String email,
-    String password,
-    String username
-  
+    String password
   ) {
     this.id = id;
     this.name = name;
@@ -63,8 +56,6 @@ public class Member {
     this.birthdate = birthdate;
     this.email = email;
     this.password = password;
-    this.username = username;
-    
   }
 
   //--------------------------------------------------
@@ -132,20 +123,8 @@ public class Member {
     this.password = password;
   }
 
- 
-
   public void setFavorite(List<VacationWish> favorite) {
     this.favorite = favorite;
   }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  
   //----------------------------------------------------
 }

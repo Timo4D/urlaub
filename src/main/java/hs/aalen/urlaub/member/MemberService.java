@@ -3,7 +3,6 @@ package hs.aalen.urlaub.member;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -35,25 +34,29 @@ public class MemberService {
   public void updateMember(long id, Member member) {
     Member existingMember = memberRepository.findById(id).orElse(null);
 
-    if(existingMember != null) {
+    if (existingMember != null) {
       if (member.getName() != null) {
         existingMember.setName(member.getName());
       }
-      if(member.getSurname() != null) {
+      if (member.getSurname() != null) {
         existingMember.setSurname(member.getSurname());
       }
-      if(member.getBirthdate() != null) {
+      if (member.getBirthdate() != null) {
         existingMember.setBirthdate(member.getBirthdate());
       }
-      if(member.getEmail() != null) {
+      if (member.getEmail() != null) {
         existingMember.setEmail(member.getEmail());
       }
-      if(member.getFavoriteVacationWish() != null) {
-        existingMember.setVacationWishToFavorites(member.getFavoriteVacationWish());
+      if (member.getFavoriteVacationWish() != null) {
+        existingMember.setVacationWishToFavorites(
+          member.getFavoriteVacationWish()
+        );
       }
-
     } else {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find Member with id: " + id);
+      throw new ResponseStatusException(
+        HttpStatus.NOT_FOUND,
+        "Could not find Member with id: " + id
+      );
     }
 
     memberRepository.save(existingMember);
