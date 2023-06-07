@@ -1,6 +1,6 @@
 package hs.aalen.urlaub.member;
 
-import hs.aalen.urlaub.security.Role;
+
 import hs.aalen.urlaub.vacationWish.VacationWish;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -31,14 +31,8 @@ public class Member {
   private String email; //mail-address could be helpful/ necessary for login reasons?
   private String password; //for member login
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinTable(
-    name = "member_roles",
-    joinColumns = @JoinColumn(
-      name = "member_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(
-        name = "role_id", referencedColumnName = "id"))
-  private List<Role> roles = new ArrayList<>();
+  
+  
 
   //--------------------------------------------------------------------
 
@@ -58,8 +52,8 @@ public class Member {
     String surname,
     Date birthdate,
     String email,
-    String password,
-    List<Role> roles
+    String password
+  
   ) {
     this.id = id;
     this.name = name;
@@ -67,7 +61,7 @@ public class Member {
     this.birthdate = birthdate;
     this.email = email;
     this.password = password;
-    this.roles = roles;
+    
   }
 
   //--------------------------------------------------
@@ -135,13 +129,7 @@ public class Member {
     this.password = password;
   }
 
-  public List<Role> getRoles() {
-    return roles;
-  }
-
-  public void setRoles(List<Role> roles) {
-    this.roles = roles;
-  }
+ 
 
   public void setFavorite(List<VacationWish> favorite) {
     this.favorite = favorite;
