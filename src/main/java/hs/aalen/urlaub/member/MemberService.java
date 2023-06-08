@@ -28,6 +28,7 @@ public class MemberService {
   }
 
   public void addMember(Member member) {
+    member.setRoles("ROLE_USER");
     memberRepository.save(member);
   }
 

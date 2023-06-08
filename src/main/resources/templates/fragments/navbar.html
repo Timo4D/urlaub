@@ -31,8 +31,12 @@
                 <button class="btn btn-primary" type="button">Button</button>
             </div>
         </div>
-        <div class="d-none d-md-block"><a class="btn btn-light me-2" role="button" href="#">Login</a><a
-                class="btn btn-primary" role="button" href="#">Register</a></div>
+        <div class="d-none d-md-block">
+            <a class="btn btn-light me-2" role="button" href="/login">Login</a>
+            <a class="btn btn-primary" role="button" href="/register">Register</a>
+            <a class="btn btn-primary" aria-current="page" th:href="@{/logout}">Logout</a>
+        </div>
+
     </div>
 </nav>
 </body>
