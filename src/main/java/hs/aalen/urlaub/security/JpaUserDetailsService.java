@@ -1,8 +1,6 @@
 package hs.aalen.urlaub.security;
 
 
-
-
 import hs.aalen.urlaub.member.MemberRepository;
 import hs.aalen.urlaub.member.SecurityMember;
 import org.springframework.beans.factory.annotation.Autowired;

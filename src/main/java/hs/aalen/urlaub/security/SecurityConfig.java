@@ -8,9 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -34,13 +31,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(myMemberDetailsService)
-                .headers(headers -> headers.frameOptions().sameOrigin())
-                .httpBasic(withDefaults())
-                .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
-                        .logoutSuccessUrl("/")
-
-                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll())
                 .build();
     }
 
