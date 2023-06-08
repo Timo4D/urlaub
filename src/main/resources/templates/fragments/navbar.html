@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -32,9 +32,11 @@
             </div>
         </div>
         <div class="d-none d-md-block">
-            <a class="btn btn-light me-2" role="button" href="/login">Login</a>
-            <a class="btn btn-primary" role="button" href="/register">Register</a>
-            <a class="btn btn-primary" aria-current="page" th:href="@{/logout}">Logout</a>
+            <a class="btn btn-light me-2" role="button" th:href="@{/login}" sec:authorize="isAnonymous()">Login</a>
+            <a class="btn btn-primary" role="button" th:href="@{/register}" sec:authorize="isAnonymous()">Register</a>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout" class="btn btn-primary" sec:authorize="isAuthenticated()">
+            </form>
         </div>
 
     </div>
