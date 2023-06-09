@@ -84,7 +84,7 @@ public class VacationWishController {
     return new RedirectView("/wish");
   }
 
-  @GetMapping("/vote/{vacationId}")
+  @GetMapping("/vote")
   public ModelAndView vote(@RequestParam long vacationId) {
     ModelAndView mav = new ModelAndView("vote");
     mav.addObject("wishes", getVacationWishListToVacation(vacationId));
