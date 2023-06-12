@@ -17,10 +17,12 @@ public class Vacation {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id; //primary key for Vacation-class
 
+  
   private String title;
   private int timePeriod; //time period in days; for example 14 days
   private Date startDate; //maybe useful
   private Date endDate; //maybe useful
+  private boolean isActive;
 
   //--------------------------------------------------------------------
   //--------entity-relation-annotation----------------------------------
@@ -87,6 +89,14 @@ public class Vacation {
 
   public void setEndDate(Date endDate) {
     this.endDate = endDate;
+  }
+
+  public boolean getIsActive() {
+    return isActive;
+  }
+  
+  public void setIsActive(boolean isActive) {
+    this.isActive = isActive;
   }
   //--------------------------------------------------------
 }

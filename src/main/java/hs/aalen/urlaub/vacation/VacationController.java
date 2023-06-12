@@ -44,6 +44,11 @@ public class VacationController {
   public void deleteVacation(@PathVariable long id) {
     vacationService.deleteVacation(id);
   }
+
+  @PutMapping("/api/vacation/conclude/{id}")
+public void concludeVacation(@PathVariable long id) {
+  vacationService.concludeVacation(id);
+}
   //------------------------------------------------------
   //-------Routes for Thymleaf-------------------------------------
   @GetMapping("/vacation")
