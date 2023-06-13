@@ -1,12 +1,15 @@
 package hs.aalen.urlaub.vacation;
 
+import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.vacationWish.VacationWish;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.sql.Date; //import needed for Date-datatype
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,12 +20,16 @@ public class Vacation {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id; //primary key for Vacation-class
 
-  
   private String title;
   private int timePeriod; //time period in days; for example 14 days
   private Date startDate; //maybe useful
   private Date endDate; //maybe useful
-  private boolean isActive;
+
+ @OneToMany(mappedBy = "vacation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VacationWish> wishes = new ArrayList<>();
+
+@OneToMany(cascade = CascadeType.ALL)
+  private List<Member> memberAccess = new ArrayList<>();
 
   //--------------------------------------------------------------------
   //--------entity-relation-annotation----------------------------------
@@ -40,15 +47,13 @@ public class Vacation {
     String title,
     int timePeriod,
     Date startDate,
-    Date endDate,
-    boolean isActive
+    Date endDate
   ) {
     this.id = id;
     this.title = title;
     this.timePeriod = timePeriod;
     this.startDate = startDate;
     this.endDate = endDate;
-    this.isActive = isActive;
   }
 
   //-----------------------------------------------------------
@@ -93,12 +98,20 @@ public class Vacation {
     this.endDate = endDate;
   }
 
-  public boolean getIsActive() {
-    return isActive;
+ public List<Member> getMemberAccess() {
+    return memberAccess;
   }
-  
-  public void setIsActive(boolean isActive) {
-    this.isActive = isActive;
+
+  public void setMemberAccess(List<Member> memberAccess) {
+    this.memberAccess = memberAccess;
+  }
+
+  public void addMemberAccess(Member access) {
+    this.memberAccess.add(access);
+  }
+
+  public void removeMemberAccess(Member access) {
+    this.memberAccess.remove(access);
   }
   //--------------------------------------------------------
 }
