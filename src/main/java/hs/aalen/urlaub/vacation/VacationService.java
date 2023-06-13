@@ -26,6 +26,7 @@ public class VacationService {
   }
 
   public void addVacation(Vacation vacation) {
+    vacation.setIsActive(true);
     vacationRepository.save(vacation);
   }
 
@@ -36,4 +37,12 @@ public class VacationService {
   public void deleteVacation(long id) {
     vacationRepository.deleteById(id);
   }
+
+  public void concludeVacation(long id) {
+    Vacation vacation = getVacation(id);
+    if (vacation != null) {
+      vacation.setIsActive(false);
+      vacationRepository.save(vacation);
+    }
+}
 }

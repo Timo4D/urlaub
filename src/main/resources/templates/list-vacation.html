@@ -26,6 +26,7 @@
             <th>Time Period</th>
             <th>startDate</th>
             <th>endDate</th>
+            <td>Active</td>
             <th>Actions</th>
         </tr>
         </thead>
@@ -35,6 +36,7 @@
             <td th:text="${vacation.timePeriod}"></td>
             <td th:text="${vacation.startDate}"></td>
             <td th:text="${vacation.endDate}"></td>
+            <td th:text="${vacation.isActive}"></td>
             <td>
                 <a th:href="@{/vote(vacationId=${vacation.id})}" class="btn btn-primary">Vote</a>
                 <a th:href="@{/conclude(vacationId=${vacation.id})}" class="btn btn-success">Conclude</a>

@@ -14,6 +14,7 @@
 <body>
 
 <div th:replace="fragments/navbar"></div>
+<p th:text="${error}"></p>
 
     <div class="container mt-4 mb-4">
         <form th:action="@{/saveMember}" method="post" th:object="${member}">
