@@ -40,13 +40,15 @@ public class Vacation {
     String title,
     int timePeriod,
     Date startDate,
-    Date endDate
+    Date endDate,
+    boolean isActive
   ) {
     this.id = id;
     this.title = title;
     this.timePeriod = timePeriod;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.isActive = isActive;
   }
 
   //-----------------------------------------------------------

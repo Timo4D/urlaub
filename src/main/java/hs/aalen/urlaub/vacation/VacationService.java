@@ -26,6 +26,7 @@ public class VacationService {
   }
 
   public void addVacation(Vacation vacation) {
+    vacation.setIsActive(true);
     vacationRepository.save(vacation);
   }
 
