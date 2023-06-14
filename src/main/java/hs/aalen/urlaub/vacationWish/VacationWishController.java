@@ -12,13 +12,19 @@ public class VacationWishController {
   //----connection to VacationWishService class------------------
   @Autowired
   VacationWishService vacationWishService;
-
+ @Autowired
+  VacationWishRepository vacationWishRepository;
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
   @GetMapping("/api/vacationWish")
   public List<VacationWish> getVacationWishList() {
     return vacationWishService.getVacationWishList();
   }
+
+    @GetMapping("/api/{vacationId}/wishes")
+  public List<VacationWish> getAllWishesForVacation(@PathVariable Long vacationId) {
+    return vacationWishRepository.findByVacationId(vacationId);
+}
 
   @GetMapping("/api/vacationWish/{id}")
   public VacationWish getVacationWish(@PathVariable long id) {

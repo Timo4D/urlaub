@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import hs.aalen.urlaub.vacationWish.VacationWish;
-import hs.aalen.urlaub.vacationWish.VacationWishRepository;
 
 @RestController
 public class VacationController {
@@ -16,8 +14,6 @@ public class VacationController {
   //----connection to VacationService class------------------
   @Autowired
   VacationService vacationService;
-  @Autowired
-  VacationWishRepository vacationWishRepository;
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
 
@@ -25,11 +21,6 @@ public class VacationController {
   public List<Vacation> getVacationList() {
     return vacationService.getVacationList();
   }
-
-  @GetMapping("/api/{vacationId}/wishes")
-  public List<VacationWish> getAllWishesForVacation(@PathVariable Long vacationId) {
-    return vacationWishRepository.findByVacationId(vacationId);
-}
 
   @GetMapping("/api/vacation/{id}")
   public Vacation getVacation(@PathVariable long id) {
