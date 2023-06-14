@@ -29,9 +29,7 @@ public class VacationWish {
   @JoinColumn(name = "vacation_id")
   private Vacation vacation;
 
-  @ManyToMany(mappedBy = "favorite")
-  @JsonIgnore //Otherwise problems with recursion in json
-  private List<Member> memberFavorite;
+  
 
   //-----------------------------------------------------
   //---------constructors-----------------------------------
