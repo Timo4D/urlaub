@@ -25,6 +25,8 @@ public class Vacation {
   private Date startDate; //maybe useful
   private Date endDate; //maybe useful
 
+  private boolean isActive;
+
  @OneToMany(mappedBy = "vacation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VacationWish> wishes = new ArrayList<>();
 
@@ -112,6 +114,14 @@ public class Vacation {
 
   public void removeMemberAccess(Member access) {
     this.memberAccess.remove(access);
+  }
+
+  public boolean getIsActive() {
+    return isActive;
+  }
+
+  public void setIsActive(boolean isActive) {
+    this.isActive = isActive;
   }
   //--------------------------------------------------------
 }
