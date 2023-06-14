@@ -27,8 +27,7 @@ public class Member {
   //--------------------------------------------------------------------
 
   //--------entity-relation-annotation----------------------------------
-  @ManyToMany
-  private List<VacationWish> favorite;
+  
 
   //------------------------------------------------------------------
   //---------constructors-----------------------------------
@@ -56,17 +55,7 @@ public class Member {
 
   //--------------------------------------------------
   //Relationship N-to-M --> favorite;
-  public List<VacationWish> getFavoriteVacationWish() {
-    return favorite;
-  }
-
-  public void addVacationWishToFavorites(VacationWish v) {
-    this.favorite.add(v);
-  }
-
-  public void setVacationWishToFavorites(List<VacationWish> list) {
-    this.favorite = list;
-  }
+ 
 
   //-------------------------------------------------------
 
@@ -119,20 +108,12 @@ public class Member {
     this.password = password;
   }
 
-  public void setFavorite(List<VacationWish> favorite) {
-    this.favorite = favorite;
-  }
-
   public String getRoles() {
     return roles;
   }
 
   public void setRoles(String roles) {
     this.roles = roles;
-  }
-
-  public List<VacationWish> getFavorite() {
-    return favorite;
   }
 
   @Override
@@ -145,7 +126,6 @@ public class Member {
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
             ", roles='" + roles + '\'' +
-            ", favorite=" + favorite +
             '}';
   }
 

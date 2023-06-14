@@ -48,11 +48,6 @@ public class MemberService {
       if (member.getEmail() != null) {
         existingMember.setEmail(member.getEmail());
       }
-      if (member.getFavoriteVacationWish() != null) {
-        existingMember.setVacationWishToFavorites(
-          member.getFavoriteVacationWish()
-        );
-      }
     } else {
       throw new ResponseStatusException(
         HttpStatus.NOT_FOUND,
