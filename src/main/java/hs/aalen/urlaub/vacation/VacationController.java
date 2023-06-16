@@ -1,7 +1,11 @@
 package hs.aalen.urlaub.vacation;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import hs.aalen.urlaub.member.Member;
+import hs.aalen.urlaub.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +18,9 @@ public class VacationController {
   //----connection to VacationService class------------------
   @Autowired
   VacationService vacationService;
+
+  @Autowired
+  MemberService memberService;
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
 
@@ -63,19 +70,30 @@ public void concludeVacation(@PathVariable long id) {
     ModelAndView mav = new ModelAndView("add-vacation-form");
     Vacation newVacation = new Vacation();
     mav.addObject("vacation", newVacation);
+    mav.addObject("members", memberService.getMemberList());
     return mav;
   }
 
   @PostMapping("/saveVacation")
-  public RedirectView saveVacation(@ModelAttribute Vacation vacation) {
-    addVacation(vacation);
+  public RedirectView saveVacation(@ModelAttribute Vacation vacation, @RequestParam String selectedMemberIds) {
+    List<Long> memberIds = Arrays.stream(selectedMemberIds.split(","))
+            .map(Long::valueOf)
+            .collect(Collectors.toList());
+
+    List<Member> members = memberService.getAllMembersById(memberIds);
+
+    vacation.setMemberAccess(members);
+    vacationService.addVacation(vacation);
+
     return new RedirectView("/vacation");
   }
+
 
   @GetMapping("/updateVacation")
   public ModelAndView updateVacation(@RequestParam Long vacationId) {
     ModelAndView mav = new ModelAndView("add-vacation-form");
     mav.addObject("vacation", getVacation(vacationId));
+    mav.addObject("members", memberService.getMemberList());
     return mav;
   }
 
