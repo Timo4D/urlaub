@@ -27,7 +27,7 @@ public class Vacation {
     @OneToMany(mappedBy = "vacation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VacationWish> wishes = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     private List<Member> memberAccess = new ArrayList<>();
 
 
