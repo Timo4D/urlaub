@@ -4,34 +4,101 @@
     <meta charset="UTF-8">
     <title>Add Vacation</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-          crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/select/1.6.2/css/select.bootstrap5.css" rel="stylesheet"/>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/select/1.6.2/js/dataTables.select.js"></script>
+
+
 </head>
 <body>
-<div th:replace="fragments/navbar ::navbar"></div>
+<div th:replace="~{fragments/navbar::navbar}"></div>
 
 <div class="container">
-  <h2>Add Vacation</h2>
-  <hr>
+    <h2>Add Vacation</h2>
+    <hr>
 
-  <form th:action="@{/saveVacation}" th:object="${vacation}" method="post">
-    <input type="text" th:field="*{title}" placeholder="Title" class="form-control col-4 mb-4">
-    <input type="number" th:field="*{timePeriod}" placeholder="Time Period" class="form-control col-4 mb-4">
-    <input type="date" th:field="*{startDate}" placeholder="Start Date" class="form-control col-4 mb-4">
-    <input type="date" th:field="*{endDate}" placeholder="End Date" class="form-control col-4 mb-4">
+    <form th:action="@{/saveVacation}" th:object="${vacation}" method="post">
+        <input type="text" th:field="*{title}" placeholder="Title" class="form-control col-4 mb-4">
+        <input type="number" th:field="*{timePeriod}" placeholder="Time Period" class="form-control col-4 mb-4">
+        <input type="date" th:field="*{startDate}" placeholder="Start Date" class="form-control col-4 mb-4">
+        <input type="date" th:field="*{endDate}" placeholder="End Date" class="form-control col-4 mb-4">
 
-    <button type="submit" class="btn btn-primary">Save</button>
-    <input type="hidden" th:field="*{id}">
-  </form>
+        <h3>Members</h3>
 
-  <hr>
-  <a th:href="@{/vacation}" class="btn btn-primary">Back to List</a>
+        <table class="table table-bordered table-striped" id="member-table">
+            <thead>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Birthdate</th>
+            <th>E-Mail</th>
+            </thead>
+            <tbody>
+            <tr th:each="member: ${members}" th:id="${member.id}">
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.surname}"></td>
+                <td th:text="${member.birthdate}"></td>
+                <td th:text="${member.email}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" name="selectedMemberIds" id="selectedMemberIds">
+
+
+    </form>
+
+    <hr>
+    <a th:href="@{/vacation}" class="btn btn-primary mb-4">Back to List</a>
+    <button id="button" class="btn btn-warning">Test</button>
 
 </div>
 
-<div th:replace="fragments/footer ::footer"></div>
+<div th:replace="~{fragments/footer::footer}"></div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var selectedMemberIds = [];
+
+        $('#member-table tbody').on('click', 'tr', function () {
+            $(this).toggleClass('table-primary');
+            var memberId = $(this).attr('id');
+            if (selectedMemberIds.includes(memberId)) {
+                // Remove the member id from the array if it's already selected.
+                selectedMemberIds = selectedMemberIds.filter(id => id !== memberId);
+            } else {
+                // Add the member id to the array if it's not yet selected.
+                selectedMemberIds.push(memberId);
+            }
+            $('#selectedMemberIds').val(selectedMemberIds.join(','));
+        });
+    });
+
+</script>
+
+
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+
+<!--        $('#member-table tbody').on('click', 'tr', function () {-->
+<!--            $(this).toggleClass('table-primary');-->
+<!--        });-->
+
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

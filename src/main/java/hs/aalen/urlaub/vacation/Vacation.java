@@ -2,12 +2,8 @@ package hs.aalen.urlaub.vacation;
 
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.vacationWish.VacationWish;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.sql.Date; //import needed for Date-datatype
 import java.util.ArrayList;
 import java.util.List;
@@ -15,113 +11,109 @@ import java.util.List;
 @Entity
 public class Vacation {
 
-  //-----------global declarations--------------------------------------
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id; //primary key for Vacation-class
+    //-----------global declarations--------------------------------------
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id; //primary key for Vacation-class
 
-  private String title;
-  private int timePeriod; //time period in days; for example 14 days
-  private Date startDate; //maybe useful
-  private Date endDate; //maybe useful
+    private String title;
+    private int timePeriod; //time period in days; for example 14 days
+    private Date startDate; //maybe useful
+    private Date endDate; //maybe useful
 
-  private boolean isActive;
+    private boolean isActive;
 
- @OneToMany(mappedBy = "vacation", cascade = CascadeType.ALL, orphanRemoval = true)
+    //--------entity-relation-annotation----------------------------------
+    @OneToMany(mappedBy = "vacation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VacationWish> wishes = new ArrayList<>();
 
-@OneToMany(cascade = CascadeType.ALL)
-  private List<Member> memberAccess = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Member> memberAccess = new ArrayList<>();
 
-  //--------------------------------------------------------------------
-  //--------entity-relation-annotation----------------------------------
-  @OneToMany(mappedBy = "vacation")
-  private List<VacationWish> vacationWishes;
 
-  //-----------------------------------------------------
-  //---------constructors-----------------------------------
-  //default constructor
-  public Vacation() {}
+    @OneToMany(mappedBy = "vacation")
+    private List<VacationWish> vacationWishes;
 
-  //constructor with variables
-  public Vacation(
-    long id,
-    String title,
-    int timePeriod,
-    Date startDate,
-    Date endDate
-  ) {
-    this.id = id;
-    this.title = title;
-    this.timePeriod = timePeriod;
-    this.startDate = startDate;
-    this.endDate = endDate;
-  }
+    //---------constructors-----------------------------------
+    public Vacation() {
+    }
 
-  //-----------------------------------------------------------
-  //----------Getters and Setters------------------------------
-  public long getId() {
-    return id;
-  }
+    public Vacation(
+            long id,
+            String title,
+            int timePeriod,
+            Date startDate,
+            Date endDate
+    ) {
+        this.id = id;
+        this.title = title;
+        this.timePeriod = timePeriod;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    //----------Getters and Setters------------------------------
+    public long getId() {
+        return id;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public int getTimePeriod() {
-    return timePeriod;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public void setTimePeriod(int timePeriod) {
-    this.timePeriod = timePeriod;
-  }
+    public int getTimePeriod() {
+        return timePeriod;
+    }
 
-  public Date getStartDate() {
-    return startDate;
-  }
+    public void setTimePeriod(int timePeriod) {
+        this.timePeriod = timePeriod;
+    }
 
-  public void setStartDate(Date startDate) {
-    this.startDate = startDate;
-  }
+    public Date getStartDate() {
+        return startDate;
+    }
 
-  public Date getEndDate() {
-    return endDate;
-  }
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
-  public void setEndDate(Date endDate) {
-    this.endDate = endDate;
-  }
+    public Date getEndDate() {
+        return endDate;
+    }
 
- public List<Member> getMemberAccess() {
-    return memberAccess;
-  }
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-  public void setMemberAccess(List<Member> memberAccess) {
-    this.memberAccess = memberAccess;
-  }
+    public List<Member> getMemberAccess() {
+        return memberAccess;
+    }
 
-  public void addMemberAccess(Member access) {
-    this.memberAccess.add(access);
-  }
+    public void setMemberAccess(List<Member> memberAccess) {
+        this.memberAccess = memberAccess;
+    }
 
-  public void removeMemberAccess(Member access) {
-    this.memberAccess.remove(access);
-  }
+    public void addMemberAccess(Member access) {
+        this.memberAccess.add(access);
+    }
 
-  public boolean getIsActive() {
-    return isActive;
-  }
+    public void removeMemberAccess(Member access) {
+        this.memberAccess.remove(access);
+    }
 
-  public void setIsActive(boolean isActive) {
-    this.isActive = isActive;
-  }
-  //--------------------------------------------------------
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 }
