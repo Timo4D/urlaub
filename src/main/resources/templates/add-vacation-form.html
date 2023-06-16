@@ -43,7 +43,7 @@
             <th>E-Mail</th>
             </thead>
             <tbody>
-            <tr th:each="member: ${members}" th:id="${member.id}">
+            <tr th:each="member: ${members}" th:data-id="${member.id}">
                 <td th:text="${member.name}"></td>
                 <td th:text="${member.surname}"></td>
                 <td th:text="${member.birthdate}"></td>
@@ -54,7 +54,8 @@
         <button type="submit" class="btn btn-primary">Save</button>
         <input type="hidden" th:field="*{id}">
         <input type="hidden" name="selectedMemberIds" id="selectedMemberIds">
-
+<!--        TODO: Make this thing prettier-->
+        <input type="hidden" th:value="${#strings.arrayJoin(vacation.memberAccess.![id], ',')}" id="existingMemberIds">
 
     </form>
 
@@ -73,6 +74,16 @@
 <script>
     $(document).ready(function () {
         var selectedMemberIds = [];
+        var existingMemberIds = $('#existingMemberIds').val();
+        console.log(existingMemberIds);
+
+        $('#member-table tbody tr').each(function() {
+            var memberId = $(this).data('id');
+            if (existingMemberIds.includes(memberId.toString())) {
+                $(this).addClass('table-primary');
+                selectedMemberIds.push(memberId);
+            }
+        });
 
         $('#member-table tbody').on('click', 'tr', function () {
             $(this).toggleClass('table-primary');
@@ -90,15 +101,5 @@
 
 </script>
 
-
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-
-<!--        $('#member-table tbody').on('click', 'tr', function () {-->
-<!--            $(this).toggleClass('table-primary');-->
-<!--        });-->
-
-<!--    });-->
-<!--</script>-->
 </body>
 </html>
