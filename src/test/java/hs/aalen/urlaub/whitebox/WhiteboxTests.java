@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberController;
+import hs.aalen.urlaub.vacationWish.VacationWish;
+import hs.aalen.urlaub.vacationWish.VacationWishController;
+
 import java.sql.Date;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +21,10 @@ public class WhiteboxTests {
   @Autowired
   private MemberController memberController = new MemberController();
 
+  @Autowired VacationWishController vacationWishController = new VacationWishController();
+
   private Long createdMemberId;
+  private Long createdVacationWishId;
 
   @Test //test the creation of a member
   public void testAddMember() {
@@ -89,11 +95,67 @@ public class WhiteboxTests {
     assertNull(deletedMember);
   }
 
+  @Test //test the creation of a vacationWish
+public void testAddVacationWish() {
+    VacationWish vacationWish = new VacationWish();
+    vacationWish.setLocation("Beach");
+    vacationWish.setDescription("Relaxing beach vacation");
+
+    vacationWishController.addVacationWish(vacationWish);
+
+    VacationWish savedWish = vacationWishController.getVacationWish(vacationWish.getId());
+    assertNotNull(savedWish);
+    assertEquals("Beach", savedWish.getLocation());
+    assertEquals("Relaxing beach vacation", savedWish.getDescription());
+
+    createdVacationWishId = savedWish.getId();
+}
+
+
+@Test //test the update of a vacationWish
+public void testUpdateVacationWish() {
+    VacationWish vacationWish = new VacationWish();
+    vacationWish.setLocation("Beach");
+    vacationWish.setDescription("Relaxing beach vacation");
+
+    vacationWishController.addVacationWish(vacationWish);
+
+    vacationWish.setLocation("Mountain");
+    vacationWish.setDescription("Adventurous mountain vacation");
+
+    vacationWishController.updateVacationWish(vacationWish.getId(), vacationWish);
+
+    VacationWish updatedWish = vacationWishController.getVacationWish(vacationWish.getId());
+    assertNotNull(updatedWish);
+    assertEquals("Mountain", updatedWish.getLocation());
+    assertEquals("Adventurous mountain vacation", updatedWish.getDescription());
+
+    createdVacationWishId = updatedWish.getId();
+}
+
+@Test //test the deletion of a vacationWish
+public void testDeleteVacationWish() {
+    VacationWish vacationWish = new VacationWish();
+    vacationWish.setLocation("Beach");
+    vacationWish.setDescription("Relaxing beach vacation");
+
+    vacationWishController.addVacationWish(vacationWish);
+
+    vacationWishController.deleteVacationWish(vacationWish.getId());
+
+    VacationWish deletedWish = vacationWishController.getVacationWish(vacationWish.getId());
+    assertNull(deletedWish);
+}
+
+
+
   @AfterEach //delete created member after test
   public void cleanup() {
-    // Lösche den erstellten Member nach dem Test
     if (createdMemberId != null) {
       memberController.deleteMember(createdMemberId);
+    }
+    if (createdVacationWishId != null) {
+      vacationWishController.deleteVacationWish(createdVacationWishId);
     }
   }
 }
