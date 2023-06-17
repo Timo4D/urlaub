@@ -1,5 +1,8 @@
 package hs.aalen.urlaub.vacationWish;
 
+import java.util.List;
+
+import hs.aalen.urlaub.rating.Rating;
 import hs.aalen.urlaub.vacation.Vacation;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class VacationWish {
@@ -24,6 +28,8 @@ public class VacationWish {
     @JoinColumn(name = "vacation_id")
     private Vacation vacation;
 
+    @OneToMany(mappedBy = "vacationWish")
+  private List<Rating> ratings;
 
     //---------constructors-----------------------------------
     public VacationWish() {

@@ -4,8 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 import java.sql.Date;
+import java.util.List;
+
+import hs.aalen.urlaub.rating.Rating;
 
 @Entity
 public class Member {
@@ -22,7 +26,9 @@ public class Member {
     private String password;
     private String roles;
 
-
+ @OneToMany(mappedBy = "member")
+  private List<Rating> ratings;
+  
     //---------constructors-----------------------------------
     //default constructor
     public Member() {
