@@ -10,10 +10,15 @@ public class RatingController {
   @Autowired
   RatingService ratingService;
 
-  @PostMapping("/api/rateVacationWish")
-  public void rateVacationWish(@RequestBody Rating rating) {
-    ratingService.addRating(rating);
-  }
+ 
+   @PostMapping("/api/member/{memberId}/vacationWish/{vacationWishId}/rating")
+    public Rating createRating(
+        @PathVariable Long memberId, 
+        @PathVariable Long vacationWishId, 
+        @RequestBody int score
+    ) {
+        return ratingService.createRating(memberId, vacationWishId, score);
+    }
 
     @GetMapping("/api/member/{memberId}/vacationWish/{vacationWishId}/rating")
     public Rating getRatingByMemberAndVacationWish(@PathVariable Long memberId, @PathVariable Long vacationWishId) {
