@@ -36,49 +36,15 @@
     <label for="email">E-Mail</label>
     </div>
 
-    <h3>Select your Wishes</h3>
-    <hr>
-    <table class="table table-bordered table-striped" id="wish-table">
-      <thead>
-      <th>Location</th>
-      <th>Description</th>
-      </thead>
-      <tbody>
-      <tr th:each="wish: ${wishes}">
-        <td th:text="${wish.location}"></td>
-        <td th:text="${wish.description}"></td>
-      </tr>
-      </tbody>
-    </table>
-
     <button class="btn btn-primary" type="submit">Save</button>
     <input type="hidden" th:field="*{id}">
   </form>
 
   <hr>
   <a th:href="@{/member}" class="btn btn-primary mb-4">Back to list</a>
-  <button id="button" class="btn btn-warning">Test</button>
 
 </div>
 
 <div th:replace="fragments/footer ::footer"></div>
-
-
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
-<script>
-  $(document).ready(function () {
-    var table = $('#wish-table').DataTable();
-
-    $('#wish-table tbody').on('click', 'tr', function () {
-      $(this).toggleClass('table-primary');
-    });
-
-    $('#button').click(function () {
-      alert(table.rows('.table-primary').data().length + ' row(s) selected');
-    });
-  });
-</script>
 </body>
 </html>

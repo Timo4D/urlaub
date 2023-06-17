@@ -1,6 +1,10 @@
 package hs.aalen.urlaub.member;
 
+import hs.aalen.urlaub.vacation.Vacation;
+import hs.aalen.urlaub.vacation.VacationService;
 import hs.aalen.urlaub.vacationWish.VacationWishService;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +25,26 @@ public class MemberController {
   @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+  private VacationService vacationService;
+
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
+
+  @GetMapping("/api/member/{memberId}/vacations")
+public List<Vacation> getVactionsForMember(@PathVariable Long memberId) {
+  Member member = memberService.getMember(memberId);
+  List<Vacation> memberVacations = new ArrayList<>();
+
+  for (Vacation vacation : vacationService.getVacationList()) {
+    if (vacation.getMemberAccess().contains(member)) {
+      memberVacations.add(vacation);
+    }
+  }
+
+  return memberVacations;
+} 
+
   @GetMapping("/api/member")
   public List<Member> getMemberList() {
     return memberService.getMemberList();
