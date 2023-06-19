@@ -51,7 +51,7 @@ public class VacationWishController {
 
   @GetMapping("/api/wishToVacation/{vacationId}")
   public List<VacationWish> getVacationWishListToVacation(@PathVariable Long vacationId) {
-    //TODO: Implementation
+    vacationWishService.getVacationWishListToVacation(vacationId);
     return null;
   }
   //------------------------------------------------------

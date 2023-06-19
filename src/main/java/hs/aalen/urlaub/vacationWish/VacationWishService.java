@@ -38,4 +38,8 @@ public class VacationWishService {
   public void deleteVacationWish(long id) {
     vacationWishRepository.deleteById(id);
   }
+
+  public void getVacationWishListToVacation(Long vacationId) {
+    vacationWishRepository.findByVacationId(vacationId);
+  }
 }
