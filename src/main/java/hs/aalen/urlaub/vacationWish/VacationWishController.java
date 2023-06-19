@@ -51,8 +51,7 @@ public class VacationWishController {
 
   @GetMapping("/api/wishToVacation/{vacationId}")
   public List<VacationWish> getVacationWishListToVacation(@PathVariable Long vacationId) {
-    vacationWishService.getVacationWishListToVacation(vacationId);
-    return null;
+    return vacationWishService.getVacationWishListToVacation(vacationId);
   }
   //------------------------------------------------------
   //-------Routes for Thymleaf-------------------------------------

@@ -44,7 +44,7 @@ public class VacationWishService {
     vacationWishRepository.deleteById(id);
   }
 
-  public void getVacationWishListToVacation(Long vacationId) {
-    vacationWishRepository.findByVacationId(vacationId);
+  public List<VacationWish> getVacationWishListToVacation(Long vacationId) {
+    return vacationWishRepository.findByVacationId(vacationId);
   }
 }
