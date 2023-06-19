@@ -1,10 +1,7 @@
 package hs.aalen.urlaub.member;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
@@ -27,6 +24,7 @@ public class Member {
     private String roles;
 
  @OneToMany(mappedBy = "member")
+ @JsonIgnore
   private List<Rating> ratings;
   
     //---------constructors-----------------------------------
@@ -109,6 +107,14 @@ public class Member {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 
     @Override

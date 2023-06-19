@@ -27,6 +27,11 @@ public class VacationWishService {
     return vacationWishRepository.findById(id).orElse(null);
   }
 
+  public List<VacationWish> getVacationWishByVacationId(long vacationId) {
+    return vacationWishRepository.findByVacationId(vacationId);
+  }
+
+
   public void addVacationWish(VacationWish vacationWish) {
     vacationWishRepository.save(vacationWish);
   }

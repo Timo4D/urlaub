@@ -1,6 +1,10 @@
 package hs.aalen.urlaub.vacationWish;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import hs.aalen.urlaub.rating.Rating;
+import hs.aalen.urlaub.vacation.VacationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,92 +13,97 @@ import org.springframework.web.servlet.view.RedirectView;
 @RestController
 public class VacationWishController {
 
-  //----connection to VacationWishService class------------------
-  @Autowired
-  VacationWishService vacationWishService;
- @Autowired
-  VacationWishRepository vacationWishRepository;
-  //-------------------------------------------------------
-  //-------URL mapping-------------------------------------
-  @GetMapping("/api/vacationWish")
-  public List<VacationWish> getVacationWishList() {
-    return vacationWishService.getVacationWishList();
-  }
+    //----connection to VacationWishService class------------------
+    @Autowired
+    VacationWishService vacationWishService;
+    @Autowired
+    VacationService vacationService;
 
-    @GetMapping("/api/{vacationId}/wishes")
-  public List<VacationWish> getAllWishesForVacation(@PathVariable Long vacationId) {
-    return vacationWishRepository.findByVacationId(vacationId);
-}
+    //-------------------------------------------------------
+    //-------URL mapping-------------------------------------
+    @GetMapping("/api/vacationWish")
+    public List<VacationWish> getVacationWishList() {
+        return vacationWishService.getVacationWishList();
+    }
 
-  @GetMapping("/api/vacationWish/{id}")
-  public VacationWish getVacationWish(@PathVariable long id) {
-    return vacationWishService.getVacationWish(id);
-  }
+    @GetMapping("/api/vacation/{vacationId}/wishes")
+    public List<VacationWish> getAllWishesForVacation(@PathVariable Long vacationId) {
+        return vacationWishService.getVacationWishByVacationId(vacationId);
+    }
 
-  @PostMapping("/api/vacationWish")
-  public void addVacationWish(@RequestBody VacationWish vacationWish) {
-    vacationWishService.addVacationWish(vacationWish);
-  }
+    @GetMapping("/api/vacationWish/{id}")
+    public VacationWish getVacationWish(@PathVariable long id) {
+        return vacationWishService.getVacationWish(id);
+    }
 
-  @PutMapping("/api/vacationWish/{id}")
-  public void updateVacationWish(
-    @PathVariable long id,
-    @RequestBody VacationWish vacationWish
-  ) {
-    vacationWishService.updateVacationWish(id, vacationWish);
-  }
+    @PostMapping("/api/vacationWish")
+    public void addVacationWish(@RequestBody VacationWish vacationWish) {
+        vacationWishService.addVacationWish(vacationWish);
+    }
 
-  @DeleteMapping("/api/vacationWish/{id}")
-  public void deleteVacationWish(@PathVariable long id) {
-    vacationWishService.deleteVacationWish(id);
-  }
+    @PutMapping("/api/vacationWish/{id}")
+    public void updateVacationWish(
+            @PathVariable long id,
+            @RequestBody VacationWish vacationWish
+    ) {
+        vacationWishService.updateVacationWish(id, vacationWish);
+    }
 
-  @GetMapping("/api/wishToVacation/{vacationId}")
-  public List<VacationWish> getVacationWishListToVacation(@PathVariable Long vacationId) {
-    //TODO: Implementation
-    return null;
-  }
-  //------------------------------------------------------
-  //-------Routes for Thymleaf-------------------------------------
-  @GetMapping("/wish")
-  public ModelAndView showVacationWish() {
-    ModelAndView mav = new ModelAndView("lsit-vacationWish");
-    mav.addObject("wishes", getVacationWishList());
-    return mav;
-  }
+    @DeleteMapping("/api/vacationWish/{id}")
+    public void deleteVacationWish(@PathVariable long id) {
+        vacationWishService.deleteVacationWish(id);
+    }
 
-  @GetMapping("/addWish")
-  public ModelAndView addWish() {
-    ModelAndView mav = new ModelAndView("add-wish-form");
-    VacationWish newWish = new VacationWish();
-    mav.addObject("wish", newWish);
-    return mav;
-  }
+    @GetMapping("/api/wishToVacation/{vacationId}")
+    public List<VacationWish> getVacationWishListToVacation(@PathVariable Long vacationId) {
+        //TODO: Implementation
+        return null;
+    }
 
-  @PostMapping("/saveWish")
-  public RedirectView saveWish(@ModelAttribute VacationWish wish) {
-    addVacationWish(wish);
-    return new RedirectView("/wish");
-  }
+    //------------------------------------------------------
+    //-------Routes for Thymleaf-------------------------------------
+    @GetMapping("/wish")
+    public ModelAndView showVacationWish() {
+        ModelAndView mav = new ModelAndView("lsit-vacationWish");
+        mav.addObject("wishes", getVacationWishList());
+        return mav;
+    }
 
-  @GetMapping("/updateWish")
-  public ModelAndView updateWish(@RequestParam Long wishId) {
-    ModelAndView mav = new ModelAndView("add-wish-form");
-    mav.addObject("wish", getVacationWish(wishId));
-    return mav;
-  }
+    @GetMapping("/addWish")
+    public ModelAndView addWish() {
+        ModelAndView mav = new ModelAndView("add-wish-form");
+        VacationWish newWish = new VacationWish();
+        mav.addObject("wish", newWish);
+        return mav;
+    }
 
-  @GetMapping("/deleteWish")
-  public RedirectView deleteWish(@RequestParam Long wishId) {
-    deleteVacationWish(wishId);
-    return new RedirectView("/wish");
-  }
+    @PostMapping("/saveWish")
+    public RedirectView saveWish(@ModelAttribute VacationWish wish) {
+        addVacationWish(wish);
+        return new RedirectView("/wish");
+    }
 
-  @GetMapping("/vote")
-  public ModelAndView vote(@RequestParam long vacationId) {
-    ModelAndView mav = new ModelAndView("vote");
-    mav.addObject("wishes", getVacationWishListToVacation(vacationId));
-    return mav;
-  }
-  //------------------------------------------------------
+    @GetMapping("/updateWish")
+    public ModelAndView updateWish(@RequestParam Long wishId) {
+        ModelAndView mav = new ModelAndView("add-wish-form");
+        mav.addObject("wish", getVacationWish(wishId));
+        return mav;
+    }
+
+    @GetMapping("/deleteWish")
+    public RedirectView deleteWish(@RequestParam Long wishId) {
+        deleteVacationWish(wishId);
+        return new RedirectView("/wish");
+    }
+
+    @GetMapping("/vote")
+    public ModelAndView vote(@RequestParam long vacationId) {
+        ModelAndView mav = new ModelAndView("vote");
+        List<Rating> ratings = new ArrayList<>();
+        mav.addObject("vacation", vacationService.getVacation(vacationId));
+        mav.addObject("wishes", vacationWishService.getVacationWishByVacationId(vacationId));
+        mav.addObject("rating", ratings);
+        return mav;
+    }
+    //------------------------------------------------------
 }
