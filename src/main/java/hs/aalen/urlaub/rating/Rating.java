@@ -63,4 +63,8 @@ public class Rating {
         this.score = score;
     }
 
+    @Override
+    public String toString() {
+        return "Rating{" + "id=" + id + ", member=" + member + ", vacationWish=" + vacationWish + ", score=" + score + '}';
+    }
 }

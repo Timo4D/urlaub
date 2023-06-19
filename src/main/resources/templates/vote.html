@@ -16,33 +16,41 @@
 
 <div class="container">
     <h2>Vote for <span th:text="${vacation.title}"></span></h2>
+    <p th:text="${member.name}"></p>
     <hr>
 
-    <form th:action="@{/saveVote}" th:object="${ratings}">
-        <table class="table table-bordered table-striped" id="rating-table">
+    <form id="ratingForm" th:action="@{/saveRatings}" th:object="${ratingListWrapper}" method="post">
+        <table class="table table-bordered table-striped" id="member-table">
             <thead>
-            <th>Score</th>
-            <th>Location</th>
-            <th>Description</th>
+            <tr>
+                <th>Vote</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
             </thead>
             <tbody>
-            <tr th:each="wish: ${wishes}">
+            <tr th:each="wish, iterStat : ${wishes}">
                 <td>
-                    <input type="number">
+                    <input type="hidden" th:value="${wish.id}" th:name="'ratings[' + ${iterStat.index} + '].vacationWish.id'">
+                    <input type="hidden" th:value="${member.id}" th:name="'ratings[' + ${iterStat.index} + '].member.id'">
+                    <input type="number" th:name="'ratings[' + ${iterStat.index} + '].score'"
+                           th:if="${#lists.size(ratingListWrapper.ratings) > iterStat.index}" th:value="${ratingListWrapper.ratings[iterStat.index].score}">
+                    <input type="number" th:name="'ratings[' + ${iterStat.index} + '].score'" value="0"
+                           th:unless="${#lists.size(ratingListWrapper.ratings) > iterStat.index}">
+                    <input type="hidden" th:value="${ratingListWrapper.ratings[iterStat.index].id}" th:name="'ratings[' + ${iterStat.index} + '].id'"
+                           th:if="${#lists.size(ratingListWrapper.ratings) > iterStat.index}">
                 </td>
                 <td th:text="${wish.location}"></td>
                 <td th:text="${wish.description}"></td>
             </tr>
             </tbody>
         </table>
-
-        <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        <input type="submit" value="update">
     </form>
 
 </div>
 
 <div th:replace="fragments/footer::footer"></div>
-
 
 </body>
 </html>

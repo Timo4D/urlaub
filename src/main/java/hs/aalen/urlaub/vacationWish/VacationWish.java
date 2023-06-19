@@ -2,7 +2,6 @@ package hs.aalen.urlaub.vacationWish;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import hs.aalen.urlaub.rating.Rating;
 import hs.aalen.urlaub.vacation.Vacation;
 import jakarta.persistence.Entity;
@@ -27,7 +26,6 @@ public class VacationWish {
     //--------entity-relation-annotation----------------------------------
     @ManyToOne
     @JoinColumn(name = "vacation_id")
-    @JsonIgnore
     private Vacation vacation;
 
     @OneToMany(mappedBy = "vacationWish")

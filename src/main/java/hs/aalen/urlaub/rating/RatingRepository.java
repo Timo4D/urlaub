@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface RatingRepository extends CrudRepository<Rating, Long> {
+public interface RatingRepository extends ListCrudRepository<Rating, Long> {
     // This method can be used to get all the ratings given by a  member
     List<Rating> findByMemberId(Long memberId);
 
