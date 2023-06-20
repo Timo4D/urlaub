@@ -11,6 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import java.util.List;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 
 @Entity
 public class VacationWish {
@@ -22,6 +25,8 @@ public class VacationWish {
 
   private String location;
   private String description;
+
+  private int rating;
 
   //--------------------------------------------------------------------
   //--------entity-relation-annotation----------------------------------
@@ -71,4 +76,23 @@ public class VacationWish {
     this.description = description;
   }
   //---------------------------------------------------------------
+
+  private List<VacationWish> sortWishesByRating(Long vacationId) {
+    List<VacationWish> allWishes = VacationWishRepository.findByVacationId(vacationId);
+
+    // Sortiere die Wünsche absteigend nach der Bewertung
+    List<VacationWish> sortedWishes = allWishes.stream()
+            .sorted(Comparator.comparing(VacationWish::getRating).reversed())
+            .collect(Collectors.toList());
+
+    return sortedWishes;
+  }
+
+  public int getRating() {
+  return rating;
+  }
+
+
+
+
 }

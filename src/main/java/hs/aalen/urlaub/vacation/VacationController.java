@@ -2,10 +2,14 @@ package hs.aalen.urlaub.vacation;
 
 import java.util.List;
 
+
+import hs.aalen.urlaub.vacationWish.VacationWish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 @RestController
 public class VacationController {
@@ -13,6 +17,8 @@ public class VacationController {
   //----connection to VacationService class------------------
   @Autowired
   VacationService vacationService;
+
+
 
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
@@ -79,6 +85,32 @@ public class VacationController {
     deleteVacation(vacationId);
     return new RedirectView("/vacation");
   }
+
+  @GetMapping("/concludeVacation")
+  public ModelAndView concludeVacation(@RequestParam Long vacationId) {
+    ModelAndView mav = new ModelAndView("conclude-vacation");
+    mav.addObject("vacation", getVacation(vacationId));
+    return mav;
+  }
+
+  @GetMapping("/sortedWishes")
+  public ModelAndView getSortedWishes(@RequestParam Long vacationId) {
+    ModelAndView mav = new ModelAndView("conclude-vacation");
+    mav.addObject("sortedWishes", sortWishesByRating(vacationId));
+    return mav;
+  }
+
+  private List<VacationWish> sortWishesByRating(Long vacationId) {
+    List<VacationWish> allWishes = vacationService.getVacation(vacationId).getVacationWishes();
+
+    // Sortiere die Wünsche absteigend nach der Bewertung
+    List<VacationWish> sortedWishes = allWishes.stream()
+            .sorted(Comparator.comparing(VacationWish::getRating).reversed())
+            .collect(Collectors.toList());
+
+    return sortedWishes;
+  }
+
 
   //------------------------------------------------------
 }

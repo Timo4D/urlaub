@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 @Service
 public class VacationWishService {
@@ -38,4 +40,17 @@ public class VacationWishService {
   public void deleteVacationWish(long id) {
     vacationWishRepository.deleteById(id);
   }
+
+  public List<VacationWish> getSortedWishes(Long vacationId) {
+    // Rufen Sie die VacationWish-Objekte für den angegebenen Urlaub ab
+    List<VacationWish> vacationWishes = VacationWishRepository.findByVacationId(vacationId);
+
+    // Sortieren Sie die Wünsche absteigend nach der Bewertung
+    List<VacationWish> sortedWishes = vacationWishes.stream()
+            .sorted(Comparator.comparing(VacationWish::getRating).reversed())
+            .collect(Collectors.toList());
+
+    return sortedWishes;
+  }
 }
+

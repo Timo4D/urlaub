@@ -30,15 +30,16 @@ public class Vacation {
   //-----------------------------------------------------
   //---------constructors-----------------------------------
   //default constructor
-  public Vacation() {}
+  public Vacation() {
+  }
 
   //constructor with variables
   public Vacation(
-    long id,
-    String title,
-    int timePeriod,
-    Date startDate,
-    Date endDate
+          long id,
+          String title,
+          int timePeriod,
+          Date startDate,
+          Date endDate
   ) {
     this.id = id;
     this.title = title;
@@ -89,4 +90,8 @@ public class Vacation {
     this.endDate = endDate;
   }
   //--------------------------------------------------------
+
+  public List<VacationWish> getVacationWishes() {
+    return vacationWishes;
+  }
 }

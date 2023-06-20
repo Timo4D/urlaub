@@ -48,6 +48,11 @@ public class VacationWishController {
     //TODO: Implementation
     return null;
   }
+  @GetMapping("/api/sortedWishes/{vacationId}")
+  public List<VacationWish> getSortedWishes(@PathVariable Long vacationId) {
+    return vacationWishService.getSortedWishes(vacationId);
+  }
+
   //------------------------------------------------------
   //-------Routes for Thymleaf-------------------------------------
   @GetMapping("/wish")
@@ -91,4 +96,6 @@ public class VacationWishController {
     return mav;
   }
   //------------------------------------------------------
+
+
 }
