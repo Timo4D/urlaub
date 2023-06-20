@@ -1,8 +1,9 @@
 package hs.aalen.urlaub.member;
 
-import java.util.List;
-
 import hs.aalen.urlaub.vacationWish.VacationWishService;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,13 +11,15 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 public class MemberController {
-
   //----connection to MemberService class------------------
   @Autowired
   MemberService memberService;
 
   @Autowired
   VacationWishService wishService;
+
+  @Autowired
+    private MemberRepository memberRepository;
 
   //-------------------------------------------------------
   //-------URL mapping-------------------------------------
@@ -26,7 +29,7 @@ public class MemberController {
   }
 
   @GetMapping("/api/member/{id}")
-  public Member getMember(@PathVariable long id) {
+  public Member getMember(@PathVariable Long id) {
     return memberService.getMember(id);
   }
 
@@ -63,12 +66,28 @@ public class MemberController {
     mav.addObject("member", newMember);
     return mav;
   }
-
+/* 
   @PostMapping("/saveMember")
   public RedirectView saveMember(@ModelAttribute Member member) {
     memberService.addMember(member);
     return new RedirectView("/member");
   }
+  */
+
+  @PostMapping("/saveMember")
+  public ModelAndView saveMember(@ModelAttribute Member member) {
+      Optional<Member> existingMember = memberRepository.findByEmail(member.getEmail());
+      if (existingMember.isPresent()) {
+          ModelAndView mav = new ModelAndView("register");
+          mav.addObject("error", "Email already exists");
+          mav.addObject("member", member);
+          return mav;
+      } else {
+          memberService.addMember(member);
+          return new ModelAndView(new RedirectView("/member"));
+      }
+  }
+
 
   @GetMapping("/updateMember")
   public ModelAndView updateMember(@RequestParam Long memberId) {

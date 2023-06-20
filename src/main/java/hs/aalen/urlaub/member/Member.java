@@ -14,13 +14,15 @@ public class Member {
 
   //-----------global declarations--------------------------------------
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id; //primary key for Member-class
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id; //primary key for Member-class
 
   private String name;
   private String surname;
   private Date birthdate;
   private String email; //mail-address could be helpful/ necessary for login reasons?
+  private String password; //for member login
+  private String roles;
 
   //--------------------------------------------------------------------
 
@@ -35,17 +37,21 @@ public class Member {
 
   //constructor with variables
   public Member(
-    long id,
+    Long id,
     String name,
     String surname,
     Date birthdate,
-    String email
+    String email,
+    String password,
+    String roles
   ) {
     this.id = id;
     this.name = name;
     this.surname = surname;
     this.birthdate = birthdate;
     this.email = email;
+    this.password = password;
+    this.roles = roles;
   }
 
   //--------------------------------------------------
@@ -65,11 +71,11 @@ public class Member {
   //-------------------------------------------------------
 
   //------------Getters and Setters--------------------
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -104,5 +110,44 @@ public class Member {
   public void setEmail(String email) {
     this.email = email;
   }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public void setFavorite(List<VacationWish> favorite) {
+    this.favorite = favorite;
+  }
+
+  public String getRoles() {
+    return roles;
+  }
+
+  public void setRoles(String roles) {
+    this.roles = roles;
+  }
+
+  public List<VacationWish> getFavorite() {
+    return favorite;
+  }
+
+  @Override
+  public String toString() {
+    return "Member{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", surname='" + surname + '\'' +
+            ", birthdate=" + birthdate +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", roles='" + roles + '\'' +
+            ", favorite=" + favorite +
+            '}';
+  }
+
   //----------------------------------------------------
 }

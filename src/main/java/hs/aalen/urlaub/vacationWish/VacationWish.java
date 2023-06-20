@@ -75,6 +75,14 @@ public class VacationWish {
   public void setDescription(String description) {
     this.description = description;
   }
+
+  public Vacation getVacation() {
+        return vacation;
+    }
+
+    public void setVacation(Vacation vacation) {
+        this.vacation = vacation;
+    }
   //---------------------------------------------------------------
 
   private List<VacationWish> sortWishesByRating(Long vacationId) {

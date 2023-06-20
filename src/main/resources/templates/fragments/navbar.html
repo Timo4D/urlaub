@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,7 +7,7 @@
 <body>
 <nav th:fragment="navbar" class="navbar navbar-dark navbar-expand-md bg-dark py-3">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="/">
                 <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                          viewBox="0 0 16 16" class="bi bi-bezier">
@@ -23,16 +23,16 @@
                 <li class="nav-item"><a class="nav-link" href="/member">Members</a></li>
                 <li class="nav-item"><a class="nav-link" href="/vacation">Vacations</a></li>
                 <li class="nav-item"><a class="nav-link" href="/wish">Wishes</a></li>
-                <li class="nav-item"><a class="nav-link" href="/vote">Vote</a></li>
-                <li class="nav-item"><a class="nav-link" href="/conclude">Conclude</a></li>
             </ul>
-            <div class="d-md-none my-2">
-                <button class="btn btn-light me-2" type="button">Button</button>
-                <button class="btn btn-primary" type="button">Button</button>
-            </div>
         </div>
-        <div class="d-none d-md-block"><a class="btn btn-light me-2" role="button" href="#">Login</a><a
-                class="btn btn-primary" role="button" href="#">Register</a></div>
+        <div class="d-none d-md-block">
+            <a class="btn btn-light me-2" role="button" th:href="@{/login}" sec:authorize="isAnonymous()">Login</a>
+            <a class="btn btn-primary" role="button" th:href="@{/register}" sec:authorize="isAnonymous()">Register</a>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout" class="btn btn-primary" sec:authorize="isAuthenticated()">
+            </form>
+        </div>
+
     </div>
 </nav>
 </body>

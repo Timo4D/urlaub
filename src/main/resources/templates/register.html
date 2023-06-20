@@ -13,29 +13,34 @@
 </head>
 <body>
 
-<div th:replace="fragments/navbar"></div>
+<div th:replace="fragments/navbar::navbar"></div>
+<p th:text="${error}"></p>
 
-    <div class="container">
-        <form action="">
+    <div class="container mt-4 mb-4">
+        <form th:action="@{/saveMember}" method="post" th:object="${member}">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="userName" placeholder="Name">
-                <label for="userName">Username</label>
+                <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name">
+                <label for="name">Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="surname" placeholder="Surname">
+                <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder="Surname">
                 <label for="surname">Surname</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="name@example.com">
                 <label for="email">Email address</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="date" class="form-control" id="birthDate" placeholder="Birthdate">
+                <input type="date" class="form-control" th:field="*{birthdate}" id="birthDate" placeholder="Birthdate">
                 <label for="birthDate">Birthdate</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" th:field="*{password}" class="form-control" id="password"  placeholder="Password">
+                <label for="password">Password</label>
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     </div>
-<div th:replace="fragments/footer"></div>
+<div th:replace="fragments/footer::footer"></div>
 </body>
 </html>
