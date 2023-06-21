@@ -1,6 +1,5 @@
 package hs.aalen.urlaub.rating;
 
-
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,12 @@ public class RatingController {
         return ratingService.getRatings();
     }
 
-
     @PostMapping("/api/member/{memberId}/vacationWish/{vacationWishId}/rating")
     public Rating createRating(
             @PathVariable Long memberId,
             @PathVariable Long vacationWishId,
-            @RequestBody int score
-    ) {
-        return ratingService.createRating(memberId, vacationWishId, score);
+            @RequestBody int score) {
+        return ratingService.createOrUpdateRating(memberId, vacationWishId, score);
     }
 
     @GetMapping("/api/member/{memberId}/vacationWish/{vacationWishId}/rating")
@@ -39,17 +36,16 @@ public class RatingController {
         return ratingService.findByMemberIdAndVacationWishId(memberId, vacationWishId);
     }
 
-    //Thymleaf Routes
+    // Thymleaf Routes
 
     @PostMapping("/saveRatings")
     public RedirectView saveRatings(@ModelAttribute RatingListWrapper ratingListWrapper, Principal principal) {
         Member member = memberService.getMember(principal.getName());
         ratingListWrapper.getRatings().forEach(rating -> {
             rating.setMember(member);
-            ratingService.saveRating(rating);
+            ratingService.createOrUpdateRating(member.getId(), rating.getVacationWish().getId(), rating.getScore());
         });
 
         return new RedirectView("/vacation");
     }
 }
-

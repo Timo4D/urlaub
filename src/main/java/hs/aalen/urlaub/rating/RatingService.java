@@ -9,6 +9,7 @@ import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberService;
 import hs.aalen.urlaub.vacationWish.VacationWish;
 import hs.aalen.urlaub.vacationWish.VacationWishService;
+import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
 
 @Service
 public class RatingService {
@@ -38,18 +39,15 @@ public class RatingService {
         return ratingRepository.findByMemberIdAndVacationWishId(member.getId(), vacationWish.getId()) != null;
     }
 
+    public Rating createOrUpdateRating(Long memberId, Long vacationWishId, int score) {
+        Member member = memberService.getMember(memberId);
+        VacationWish vacationWish = vacationWishService.getVacationWish(vacationWishId);
 
-    public Rating createRating(Long memberId, Long vacationWishId, int score) {
-        Member member = memberService.getMember(memberId);  // replace with your method to get Member
-        VacationWish vacationWish = vacationWishService.getVacationWish(vacationWishId);  // replace with your method to get VacationWish
+        Rating existingRating = ratingRepository.findByMemberIdAndVacationWishId(memberId, vacationWishId);
 
-
-        RatingService ratingService = new RatingService();
-        Rating existingRating = ratingService.findByMemberIdAndVacationWishId(memberId, vacationWishId);
-
-            if (existingRating != null) {
-                return updateRating(existingRating, score);
-            }
+        if (existingRating != null) {
+            return updateRating(existingRating, score);
+        }
 
         Rating rating = new Rating();
         rating.setMember(member);
@@ -60,17 +58,17 @@ public class RatingService {
     }
 
     public Rating updateRating(Rating existingRating, int newScore) {
-    existingRating.setScore(newScore);
-    return ratingRepository.save(existingRating);
-}
+        existingRating.setScore(newScore);
+        return ratingRepository.save(existingRating);
+    }
 
     public Double getAverageRatingForVacationWish(Long vacationWishId) {
         return ratingRepository.findAverageRatingByVacationWishId(vacationWishId);
     }
 
     public Rating findByMemberIdAndVacationWishId(Long memberId, Long vacationWishId) {
-        return ratingRepository.findByMemberIdAndVacationWishId(memberId, vacationWishId)
-                .orElseThrow(() -> new IllegalArgumentException("No rating found for the given member and vacation wish IDs"));
+        return ratingRepository.findByMemberIdAndVacationWishId(memberId, vacationWishId);
+               
     }
 
     public List<Rating> getRatings() {
