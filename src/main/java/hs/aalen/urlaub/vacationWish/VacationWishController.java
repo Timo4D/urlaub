@@ -84,12 +84,14 @@ public class VacationWishController {
         ModelAndView mav = new ModelAndView("add-wish-form");
         VacationWish newWish = new VacationWish();
         mav.addObject("wish", newWish);
+        mav.addObject("vacations", vacationService.getVacationList());
         return mav;
     }
 
     @PostMapping("/saveWish")
-    public void saveWish(@ModelAttribute VacationWish wish) {
+    public RedirectView saveWish(@ModelAttribute VacationWish wish) {
         addVacationWish(wish);
+        return new RedirectView("/wish");
     }
 
     @GetMapping("/updateWish")

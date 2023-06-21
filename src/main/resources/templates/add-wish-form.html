@@ -21,16 +21,54 @@
         <input type="text" th:field="*{location}" placeholder="Location" class="form-control col-4 mb-4">
         <input type="text" th:field="*{description}" placeholder="Description" class="form-control col-4 mb-4">
 
+        <table class="table table-bordered table-striped" id="vacation-table">
+            <thead>
+            <th>Title</th>
+            <th>Members</th>
+            <th>Time Period</th>
+            <th>Start Date</th>
+            </thead>
+            <tbody>
+            <tr th:each="vacation: ${vacations}" th:data-vacation-id="${vacation.id}">
+                <td th:text="${vacation.title}"></td>
+                <td th:text="${vacation.memberAccess.size()}"></td>
+                <td th:text="${vacation.timePeriod}"></td>
+                <td th:text="${vacation.startDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="vacation" id="selectedVacation">
         <button class="btn btn-primary" type="submit">Save</button>
         <input type="hidden" th:field="*{id}">
-
-        <hr>
-        <a th:href="@{/wish}" class="btn btn-primary">Back to list</a>
-
     </form>
+    <hr>
+    <a th:href="@{/wish}" class="btn btn-primary">Back to list</a>
+
+
 </div>
 
 <div th:replace="fragments/footer::footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#vacation-table').DataTable();
+
+        $('#vacation-table tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('table-primary')) {
+                $(this).removeClass('table-primary');
+                $('#selectedVacation').val(''); // Clear the selected vacation
+            } else {
+                $('tr.table-primary').removeClass('table-primary');
+                $(this).addClass('table-primary');
+                var vacationId = $(this).data('vacation-id');
+                $('#selectedVacation').val(vacationId); // Set the selected vacation ID
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
