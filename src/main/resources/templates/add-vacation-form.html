@@ -61,7 +61,6 @@
 
     <hr>
     <a th:href="@{/vacation}" class="btn btn-primary mb-4">Back to List</a>
-    <button id="button" class="btn btn-warning">Test</button>
 
 </div>
 
@@ -87,7 +86,8 @@
 
         $('#member-table tbody').on('click', 'tr', function () {
             $(this).toggleClass('table-primary');
-            var memberId = $(this).attr('id');
+            var memberId = $(this).attr('data-id');
+            console.log(memberId)
             if (selectedMemberIds.includes(memberId)) {
                 // Remove the member id from the array if it's already selected.
                 selectedMemberIds = selectedMemberIds.filter(id => id !== memberId);
