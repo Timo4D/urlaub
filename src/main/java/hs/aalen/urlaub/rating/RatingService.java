@@ -9,7 +9,6 @@ import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberService;
 import hs.aalen.urlaub.vacationWish.VacationWish;
 import hs.aalen.urlaub.vacationWish.VacationWishService;
-import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
 
 @Service
 public class RatingService {
