@@ -15,7 +15,6 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class VacationWish {
 
-    //-----------global declarations--------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; //primary key for VacationWish-class
@@ -31,7 +30,6 @@ public class VacationWish {
     @OneToMany(mappedBy = "vacationWish")
     private List<Rating> ratings;
 
-    //---------constructors-----------------------------------
     public VacationWish() {
     }
 
@@ -41,7 +39,6 @@ public class VacationWish {
         this.description = description;
     }
 
-    //--------------Getters and Setters----------------------------------
     public long getId() {
         return id;
     }

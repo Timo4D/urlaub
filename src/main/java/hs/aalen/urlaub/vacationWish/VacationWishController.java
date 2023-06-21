@@ -1,8 +1,5 @@
 package hs.aalen.urlaub.vacationWish;
 
-import java.security.Principal;
-import java.util.List;
-
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberService;
 import hs.aalen.urlaub.rating.Rating;
@@ -15,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
+import java.util.List;
+
 @RestController
 public class VacationWishController {
 
-    //----connection to VacationWishService class------------------
     @Autowired
     VacationWishService vacationWishService;
     @Autowired
@@ -30,7 +29,6 @@ public class VacationWishController {
     @Autowired
     RatingService ratingService;
 
-    //-------------------------------------------------------
     //-------URL mapping-------------------------------------
     @GetMapping("/api/vacationWish")
     public List<VacationWish> getVacationWishList() {
@@ -70,7 +68,6 @@ public class VacationWishController {
         return vacationWishService.getVacationWishListToVacation(vacationId);
     }
 
-    //------------------------------------------------------
     //-------Routes for Thymleaf-------------------------------------
     @GetMapping("/wish")
     public ModelAndView showVacationWish() {
@@ -117,7 +114,7 @@ public class VacationWishController {
         List<Rating> ratings = ratingService.getRatingsByMemberId(member.getId());
         RatingListWrapper ratingListWrapper = new RatingListWrapper(ratings);
 
-        mav.addObject("member",member);
+        mav.addObject("member", member);
         mav.addObject("wishes", wishes);
         mav.addObject("vacation", vacation);
         mav.addObject("ratingListWrapper", ratingListWrapper);

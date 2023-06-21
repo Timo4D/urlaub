@@ -23,10 +23,10 @@ public class Member {
     private String password;
     private String roles;
 
- @OneToMany(mappedBy = "member")
- @JsonIgnore
-  private List<Rating> ratings;
-  
+    @OneToMany(mappedBy = "member")
+    @JsonIgnore
+    private List<Rating> ratings;
+
     //---------constructors-----------------------------------
     //default constructor
     public Member() {

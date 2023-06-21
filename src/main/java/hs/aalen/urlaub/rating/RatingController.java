@@ -42,6 +42,7 @@ public class RatingController {
     public RedirectView saveRatings(@ModelAttribute RatingListWrapper ratingListWrapper, Principal principal) {
         Member member = memberService.getMember(principal.getName());
         ratingListWrapper.getRatings().forEach(rating -> {
+            System.out.println(rating.getId());
             rating.setMember(member);
             ratingService.createOrUpdateRating(member.getId(), rating.getVacationWish().getId(), rating.getScore());
         });

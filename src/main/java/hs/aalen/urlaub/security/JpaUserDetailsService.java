@@ -15,7 +15,6 @@ public class JpaUserDetailsService implements UserDetailsService {
     @Autowired
     private MemberRepository memberRepository;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return memberRepository

@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 
+//This class is used by Spring Security to authenticate and authorize user
 public class SecurityMember implements UserDetails {
 
     private final Member member;
@@ -18,8 +19,8 @@ public class SecurityMember implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(member
-                .getRoles()
-                .split(","))
+                        .getRoles()
+                        .split(","))
                 .map(SimpleGrantedAuthority::new)
                 .toList();
     }

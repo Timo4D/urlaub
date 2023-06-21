@@ -37,8 +37,6 @@
                            th:if="${#lists.size(ratingListWrapper.ratings) > iterStat.index}" th:value="${ratingListWrapper.ratings[iterStat.index].score}">
                     <input type="number" th:name="'ratings[' + ${iterStat.index} + '].score'" value="0"
                            th:unless="${#lists.size(ratingListWrapper.ratings) > iterStat.index}">
-                    <input type="hidden" th:value="${ratingListWrapper.ratings[iterStat.index].id}" th:name="'ratings[' + ${iterStat.index} + '].id'"
-                           th:if="${#lists.size(ratingListWrapper.ratings) > iterStat.index}">
                 </td>
                 <td th:text="${wish.location}"></td>
                 <td th:text="${wish.description}"></td>

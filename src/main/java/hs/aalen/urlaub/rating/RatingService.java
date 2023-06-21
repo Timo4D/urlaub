@@ -1,14 +1,13 @@
 package hs.aalen.urlaub.rating;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberService;
 import hs.aalen.urlaub.vacationWish.VacationWish;
 import hs.aalen.urlaub.vacationWish.VacationWishService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RatingService {
@@ -24,7 +23,6 @@ public class RatingService {
         ratingRepository.save(rating);
     }
 
-    // This method can be used to get all the ratings given by a specific member
     public List<Rating> getRatingsByMemberId(Long memberId) {
         return ratingRepository.findByMemberId(memberId);
     }
@@ -34,10 +32,8 @@ public class RatingService {
         return ratingRepository.findByVacationWishId(vacationWishId);
     }
 
-    public boolean hasMemberRatedVacationWish(Member member, VacationWish vacationWish) {
-        return ratingRepository.findByMemberIdAndVacationWishId(member.getId(), vacationWish.getId()) != null;
-    }
-
+    // If a Member has already rated a vacation wish, the rating will be updated
+    // Otherwise a new rating will be created
     public Rating createOrUpdateRating(Long memberId, Long vacationWishId, int score) {
         Member member = memberService.getMember(memberId);
         VacationWish vacationWish = vacationWishService.getVacationWish(vacationWishId);
@@ -67,7 +63,7 @@ public class RatingService {
 
     public Rating findByMemberIdAndVacationWishId(Long memberId, Long vacationWishId) {
         return ratingRepository.findByMemberIdAndVacationWishId(memberId, vacationWishId);
-               
+
     }
 
     public List<Rating> getRatings() {

@@ -1,10 +1,5 @@
 package hs.aalen.urlaub.vacation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberService;
 import hs.aalen.urlaub.rating.RatingService;
@@ -16,11 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RestController
 public class VacationController {
 
-    //----connection to VacationService class------------------
+
     @Autowired
     VacationService vacationService;
 
@@ -32,7 +32,7 @@ public class VacationController {
 
     @Autowired
     RatingService ratingService;
-    //-------------------------------------------------------
+
     //-------URL mapping-------------------------------------
 
     @GetMapping("/api/vacation")
@@ -68,7 +68,7 @@ public class VacationController {
         vacationService.concludeVacation(id);
     }
 
-    //------------------------------------------------------
+
     //-------Routes for Thymleaf-------------------------------------
     @GetMapping("/vacation")
     public ModelAndView showVacation() {
@@ -136,5 +136,4 @@ public class VacationController {
         vacationService.concludeVacation(vacationId);
         return new RedirectView("/vacation");
     }
-    //------------------------------------------------------
 }

@@ -4,7 +4,7 @@ import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.vacationWish.VacationWish;
 import jakarta.persistence.*;
 
-import java.sql.Date; //import needed for Date-datatype
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +18,16 @@ public class Vacation {
 
     private String title;
     private int timePeriod; //time period in days; for example 14 days
-    private Date startDate; 
-   
+    private Date startDate;
 
     private boolean isActive;
 
     //--------entity-relation-annotation----------------------------------
     @OneToMany(mappedBy = "vacation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VacationWish> wishes = new ArrayList<>();
+    private final List<VacationWish> wishes = new ArrayList<>();
 
     @ManyToMany()
     private List<Member> memberAccess = new ArrayList<>();
-
 
     @OneToMany(mappedBy = "vacation")
     private List<VacationWish> vacationWishes;

@@ -1,9 +1,9 @@
 package hs.aalen.urlaub.rating;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
+
+import java.util.List;
 
 public interface RatingRepository extends ListCrudRepository<Rating, Long> {
     // This method can be used to get all the ratings given by a member

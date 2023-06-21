@@ -38,9 +38,9 @@
             <td th:text="${vacation.getMemberAccess().size()}"></td>
             <td th:text="${vacation.isActive}"></td>
             <td>
-                <a th:href="@{/vote(vacationId=${vacation.id})}" class="btn btn-primary">Vote</a>
-                <a th:href="@{/conclude(vacationId=${vacation.id})}" class="btn btn-success">Conclude</a>
-                <a th:href="@{/updateVacation(vacationId=${vacation.id})}" class="btn btn-info">Update</a>
+                <a th:if="${vacation.isActive}" th:href="@{/vote(vacationId=${vacation.id})}" class="btn btn-primary">Vote</a>
+                <a th:if="${vacation.isActive}" th:href="@{/conclude(vacationId=${vacation.id})}" class="btn btn-success">Conclude</a>
+                <a th:if="${vacation.isActive}" th:href="@{/updateVacation(vacationId=${vacation.id})}" class="btn btn-info">Update</a>
                 <a th:href="@{/deleteVacation(vacationId=${vacation.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
