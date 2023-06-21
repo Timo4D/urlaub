@@ -16,5 +16,6 @@ public interface RatingRepository extends ListCrudRepository<Rating, Long> {
     @Query("SELECT AVG(r.score) FROM Rating r WHERE r.vacationWish.id = :vacationWishId")
     Double findAverageRatingByVacationWishId(Long vacationWishId);
 
+
      Optional<Rating> findByMemberIdAndVacationWishId(Long memberId, Long vacationWishId);
 }
