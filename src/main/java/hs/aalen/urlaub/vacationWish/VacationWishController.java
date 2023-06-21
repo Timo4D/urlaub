@@ -110,15 +110,18 @@ public class VacationWishController {
     @GetMapping("/vote")
     public ModelAndView vote(@RequestParam long vacationId, Principal principal) {
         ModelAndView mav = new ModelAndView("vote");
+
         Member member = memberService.getMember(principal.getName());
-        List<VacationWish> wishes = vacationWishService.getVacationWishByVacationId(vacationId);
         Vacation vacation = vacationService.getVacation(vacationId);
-        List<Rating> ratings = ratingService.getRatings();
+        List<VacationWish> wishes = vacationWishService.getVacationWishByVacationId(vacationId);
+        List<Rating> ratings = ratingService.getRatingsByMemberId(member.getId());
         RatingListWrapper ratingListWrapper = new RatingListWrapper(ratings);
+
         mav.addObject("member",member);
         mav.addObject("wishes", wishes);
         mav.addObject("vacation", vacation);
         mav.addObject("ratingListWrapper", ratingListWrapper);
+
         return mav;
     }
     //------------------------------------------------------
