@@ -43,6 +43,14 @@ public class RatingService {
         Member member = memberService.getMember(memberId);  // replace with your method to get Member
         VacationWish vacationWish = vacationWishService.getVacationWish(vacationWishId);  // replace with your method to get VacationWish
 
+
+        RatingService ratingService = new RatingService();
+        Rating existingRating = ratingService.findByMemberIdAndVacationWishId(memberId, vacationWishId);
+
+            if (existingRating != null) {
+                return updateRating(existingRating, score);
+            }
+
         Rating rating = new Rating();
         rating.setMember(member);
         rating.setVacationWish(vacationWish);
@@ -50,6 +58,11 @@ public class RatingService {
 
         return ratingRepository.save(rating);
     }
+
+    public Rating updateRating(Rating existingRating, int newScore) {
+    existingRating.setScore(newScore);
+    return ratingRepository.save(existingRating);
+}
 
     public Double getAverageRatingForVacationWish(Long vacationWishId) {
         return ratingRepository.findAverageRatingByVacationWishId(vacationWishId);
