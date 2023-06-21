@@ -167,7 +167,7 @@ public class WhiteboxTests {
     vacation.setTitle("Summer Vacation");
     vacation.setTimePeriod(14);
     vacation.setStartDate(new Date(2023, 6, 1));
-    vacation.setEndDate(new Date(2023, 6, 14));
+  
 
     vacationController.addVacation(vacation);
 
@@ -176,7 +176,6 @@ public class WhiteboxTests {
     assertEquals("Summer Vacation", savedVacation.getTitle());
     assertEquals(14, savedVacation.getTimePeriod());
     assertEquals(new Date(2023, 6, 1), savedVacation.getStartDate());
-    assertEquals(new Date(2023, 6, 14), savedVacation.getEndDate());
 
     createdVacationId = savedVacation.getId();
   }
@@ -187,7 +186,6 @@ public class WhiteboxTests {
     vacation.setTitle("Winter Vacation");
     vacation.setTimePeriod(7);
     vacation.setStartDate(new Date(2023, 12, 24));
-    vacation.setEndDate(new Date(2023, 12, 31));
 
     vacationController.addVacation(vacation);
 
@@ -197,7 +195,6 @@ public class WhiteboxTests {
     savedVacation.setTitle("New Year Vacation");
     savedVacation.setTimePeriod(5);
     savedVacation.setStartDate(new Date(2023, 12, 30));
-    savedVacation.setEndDate(new Date(2024, 1, 4));
 
     vacationController.updateVacation(savedVacation.getId(), savedVacation);
 
@@ -208,7 +205,6 @@ public class WhiteboxTests {
     assertEquals("New Year Vacation", updatedVacation.getTitle());
     assertEquals(5, updatedVacation.getTimePeriod());
     assertEquals(new Date(2023, 12, 30), updatedVacation.getStartDate());
-    assertEquals(new Date(2024, 1, 4), updatedVacation.getEndDate());
 
     createdVacationId = updatedVacation.getId();
   }
@@ -219,7 +215,6 @@ public class WhiteboxTests {
     vacation.setTitle("Beach Vacation");
     vacation.setTimePeriod(7);
     vacation.setStartDate(new Date(2023, 8, 1));
-    vacation.setEndDate(new Date(2023, 8, 7));
 
     vacationController.addVacation(vacation);
 

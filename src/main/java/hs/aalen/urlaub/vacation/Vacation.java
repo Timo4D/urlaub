@@ -18,8 +18,8 @@ public class Vacation {
 
     private String title;
     private int timePeriod; //time period in days; for example 14 days
-    private Date startDate; //maybe useful
-    private Date endDate; //maybe useful
+    private Date startDate; 
+   
 
     private boolean isActive;
 
@@ -42,14 +42,12 @@ public class Vacation {
             long id,
             String title,
             int timePeriod,
-            Date startDate,
-            Date endDate
+            Date startDate
     ) {
         this.id = id;
         this.title = title;
         this.timePeriod = timePeriod;
         this.startDate = startDate;
-        this.endDate = endDate;
     }
 
     //----------Getters and Setters------------------------------
@@ -83,14 +81,6 @@ public class Vacation {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 
     public List<Member> getMemberAccess() {
