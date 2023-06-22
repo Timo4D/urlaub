@@ -10,7 +10,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<div th:replace="/fragments/navbar"></div>
+<div th:replace="~{/fragments/navbar}"></div>
 
 <div class="container mt-4">
     <h1>Please Log In</h1>
@@ -29,7 +29,6 @@
             <input class="form-control" type="password" name="password" id="password" placeholder="Password"/>
             <label for="password">Password</label>
         </div>
-<!--        <input type="submit" value="Log in"/>-->
         <button type="submit" class="btn btn-primary">Log in</button>
     </form>
 </div>

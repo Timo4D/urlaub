@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,9 +79,10 @@ public class VacationController {
     }
 
     @GetMapping("/addVacation")
-    public ModelAndView addVacation() {
+    public ModelAndView addVacation(Principal principal) {
         ModelAndView mav = new ModelAndView("add-vacation-form");
         Vacation newVacation = new Vacation();
+        mav.addObject("principal", memberService.getMember(principal.getName()));
         mav.addObject("vacation", newVacation);
         mav.addObject("members", memberService.getMemberList());
         return mav;

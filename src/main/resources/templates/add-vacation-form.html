@@ -33,7 +33,9 @@
         <input type="date" th:field="*{startDate}" placeholder="Start Date" class="form-control col-4 mb-4">
 
         <h3>Members</h3>
-
+        <div class="alert alert-info">
+            You have to select at least one member.
+        </div>
         <table class="table table-bordered table-striped" id="member-table">
             <thead>
             <th>Name</th>
@@ -53,9 +55,8 @@
         <button type="submit" class="btn btn-primary">Save</button>
         <input type="hidden" th:field="*{id}">
         <input type="hidden" name="selectedMemberIds" id="selectedMemberIds">
-<!--        TODO: Make this thing prettier-->
         <input type="hidden" th:value="${#strings.arrayJoin(vacation.memberAccess.![id], ',')}" id="existingMemberIds">
-
+        <input type="hidden" id="principal" th:value="${principal.id}">
     </form>
 
     <hr>
