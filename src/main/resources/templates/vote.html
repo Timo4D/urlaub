@@ -16,10 +16,16 @@
 
 <div class="container">
     <h2>Vote for <span th:text="${vacation.title}"></span></h2>
-    <p th:text="${member.name}"></p>
     <hr>
 
-    <form id="ratingForm" th:action="@{/saveRatings}" th:object="${ratingListWrapper}" method="post">
+    <div th:if="${#lists.isEmpty(wishes)}" class="mb-4">
+        <div class="alert alert-primary">
+            No wishes found. Please add some wishes first.
+        </div>
+        <a th:href="@{/addWish}" class="btn btn-primary">Add Wishes</a>
+    </div>
+
+    <form id="ratingForm" th:action="@{/saveRatings}" th:object="${ratingListWrapper}" method="post" th:unless="${#lists.isEmpty(wishes)}">
         <table class="table table-bordered table-striped" id="member-table">
             <thead>
             <tr>
@@ -43,9 +49,9 @@
             </tr>
             </tbody>
         </table>
-        <input type="submit" value="update">
+        <input class="btn btn-primary mb-4" type="submit" value="Update">
     </form>
-
+    <a href="/vacation" class="btn btn-secondary mb-4">Back to List</a>
 </div>
 
 <div th:replace="~{fragments/footer::footer}"></div>

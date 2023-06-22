@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .userDetailsService(myMemberDetailsService)
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/",true)
                         .permitAll())
                 .build();
     }
