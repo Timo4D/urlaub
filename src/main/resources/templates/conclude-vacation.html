@@ -25,8 +25,14 @@
     <h2 th:text="'Conclude '+ ${vacation.title}"></h2>
     <hr>
 
+    <div th:if="${#lists.isEmpty(wishes)}" class="mb-4">
+        <div class="alert alert-primary">
+            No wishes found. Please add some wishes first.
+        </div>
+        <a th:href="@{/addWish}" class="btn btn-primary">Add Wishes</a>
+    </div>
 
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" th:unless="${#lists.isEmpty(wishes)}">
         <thead>
         <tr>
             <th>Rating</th>

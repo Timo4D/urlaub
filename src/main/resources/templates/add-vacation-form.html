@@ -38,10 +38,12 @@
         </div>
         <table class="table table-bordered table-striped" id="member-table">
             <thead>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Birthdate</th>
-            <th>E-Mail</th>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Birthdate</th>
+                <th>E-Mail</th>
+            </tr>
             </thead>
             <tbody>
             <tr th:each="member: ${members}" th:data-id="${member.id}">
@@ -54,9 +56,8 @@
         </table>
         <button type="submit" class="btn btn-primary">Save</button>
         <input type="hidden" th:field="*{id}">
-        <input type="hidden" name="selectedMemberIds" id="selectedMemberIds">
+        <input type="hidden" name="selectedMemberIds" id="selectedMemberIds" th:value="${selectedMemberIds}">
         <input type="hidden" th:value="${#strings.arrayJoin(vacation.memberAccess.![id], ',')}" id="existingMemberIds">
-        <input type="hidden" id="principal" th:value="${principal.id}">
     </form>
 
     <hr>
@@ -75,10 +76,13 @@
         var selectedMemberIds = [];
         var existingMemberIds = $('#existingMemberIds').val();
         console.log(existingMemberIds);
+        console.log(selectedMemberIds);
 
-        $('#member-table tbody tr').each(function() {
+        $('#member-table').DataTable();
+
+        $('#member-table tbody tr').each(function () {
             var memberId = $(this).data('id');
-            if (existingMemberIds.includes(memberId.toString())) {
+            if (existingMemberIds.includes(memberId)) {
                 $(this).addClass('table-primary');
                 selectedMemberIds.push(memberId);
             }
