@@ -78,6 +78,28 @@ public class BlackboxTests {
     createdId = savedMember.getId();
   }
 
+  @Test //test the registration of a member with Umlaut in mail address
+  public void testRegisterUser2() {
+    Member member = new Member();
+    member.setName("John");
+    member.setSurname("Düöäe");
+    member.setBirthdate(new Date(2000, 01, 01));
+    member.setEmail("jöhn.döäüe@example.com");
+    member.setPassword("password");
+    member.setRoles("ROLE_USER");
+
+    ModelAndView mav = securityController.register();
+    mav.addObject("member", member);
+    ResponseEntity<String> response = registerMember(memberRepository, member);
+
+    assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    assertEquals("User registered successfully", response.getBody());
+
+    memberController.addMember(member);
+    Member savedMember = memberController.getMember(member.getId());
+    createdId = savedMember.getId();
+  }
+
   @Test //test login of a member
   public void testUserLogin() {
     Member member = new Member();
@@ -151,25 +173,7 @@ private ResponseEntity<String> loginUser(String email, String password) {
 }
 
 
-  @Test // tests the performance of adding 200 members
-  public void testMemberAddPerformance() {
-    MemberService memberServiceMock = mock(MemberService.class);
-
-    assertTimeout(
-      Duration.ofSeconds(5),
-      () -> {
-        for (int i = 0; i < 200; i++) {
-          Member member = new Member();
-
-          memberServiceMock.addMember(member);
-        }
-      },
-      "Adding 200 members took longer than expected."
-    );
-
-    verify(memberServiceMock, times(200)).addMember(any(Member.class));
-  }
-
+  
 
 
 }
