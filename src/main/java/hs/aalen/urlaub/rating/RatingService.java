@@ -61,6 +61,10 @@ public class RatingService {
         return ratingRepository.findAverageRatingByVacationWishId(vacationWishId);
     }
 
+    public Integer getSumOfRatingsForVacationWish(Long vacationWishId) {
+        return ratingRepository.findSumOfRatingsByVacationWishId(vacationWishId);
+    }
+
     public Rating findByMemberIdAndVacationWishId(Long memberId, Long vacationWishId) {
         return ratingRepository.findByMemberIdAndVacationWishId(memberId, vacationWishId);
 

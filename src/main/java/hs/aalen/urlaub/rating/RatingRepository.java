@@ -16,4 +16,8 @@ public interface RatingRepository extends ListCrudRepository<Rating, Long> {
     Double findAverageRatingByVacationWishId(Long vacationWishId);
 
     Rating findByMemberIdAndVacationWishId(Long memberId, Long vacationWishId);
+
+    // This method can be used to get all the sum of ratings for a specific vacation wish
+    @Query("SELECT SUM(r.score) FROM Rating r WHERE r.vacationWish.id = :vacationWishId")
+    Integer findSumOfRatingsByVacationWishId(Long vacationWishId);
 }
