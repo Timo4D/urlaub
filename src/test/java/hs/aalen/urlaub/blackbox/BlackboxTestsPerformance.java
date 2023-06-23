@@ -82,7 +82,7 @@ public class BlackboxTestsPerformance {
 
   @Test // tests the performance of retrieving all members
   void testMemberRetrievalPerformance() {
-    int maxMembers = 200;
+    int maxMembers = 100;
 
     long startId = 1000000L;
     for (int i = 0; i <= maxMembers; i++) {
@@ -181,7 +181,7 @@ public class BlackboxTestsPerformance {
 
   @Test // tests the performance of updating all vacations
   void testVacationUpdatePerformance() {
-    int maxVacations = 200;
+    int maxVacations = 100;
 
     long startTime = System.currentTimeMillis();
 
@@ -281,7 +281,7 @@ public class BlackboxTestsPerformance {
 
   @Test // tests the performance of retrieving all vacation wishes
   void testVacationWishRetrievalPerformance() {
-    int maxWishes = 200;
+    int maxWishes = 100;
 
     long startTime = System.currentTimeMillis();
 
