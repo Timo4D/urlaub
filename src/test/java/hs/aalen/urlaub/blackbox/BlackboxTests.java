@@ -1,28 +1,11 @@
 package hs.aalen.urlaub.blackbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.time.Duration;
-
 
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberController;
 import hs.aalen.urlaub.member.MemberRepository;
-import hs.aalen.urlaub.member.MemberService;
 import hs.aalen.urlaub.security.SecurityController;
-import hs.aalen.urlaub.vacation.Vacation;
 import hs.aalen.urlaub.vacationWish.VacationWishController;
 import jakarta.transaction.Transactional;
 
@@ -56,7 +39,7 @@ public class BlackboxTests {
 
   private Long createdId;
 
-  @Test //test the registration of a member
+  @Test // test the registration of a member
   public void testRegisterUser() {
     Member member = new Member();
     member.setName("John");
@@ -78,7 +61,7 @@ public class BlackboxTests {
     createdId = savedMember.getId();
   }
 
-  @Test //test the registration of a member with Umlaut in mail address
+  @Test // test the registration of a member with Umlaut in mail address
   public void testRegisterUser2() {
     Member member = new Member();
     member.setName("John");
@@ -100,7 +83,7 @@ public class BlackboxTests {
     createdId = savedMember.getId();
   }
 
-  @Test //test login of a member
+  @Test // test login of a member
   public void testUserLogin() {
     Member member = new Member();
     member.setName("John");
@@ -127,29 +110,26 @@ public class BlackboxTests {
     createdId = savedMember.getId();
   }
 
-  //method for registering a member
+  // method for registering a member
   private ResponseEntity<String> registerMember(
-    MemberRepository memberRepository,
-    Member member
-  ) {
+      MemberRepository memberRepository,
+      Member member) {
     Optional<Member> existingMember = memberRepository.findByEmail(
-      member.getEmail()
-    );
+        member.getEmail());
     if (existingMember.isPresent()) {
       return ResponseEntity
-        .status(HttpStatus.CONFLICT)
-        .body("Email already exists");
+          .status(HttpStatus.CONFLICT)
+          .body("Email already exists");
     } else {
       memberRepository.save(member);
       return ResponseEntity
-        .status(HttpStatus.CREATED)
-        .body("User registered successfully");
+          .status(HttpStatus.CREATED)
+          .body("User registered successfully");
     }
   }
- 
 
- @Test // Test for login with invalid access code
-public void testInvalidUserLogin() {
+  @Test // Test for login with invalid access code
+  public void testInvalidUserLogin() {
     String email = "invalid@example.com";
     String password = "invalidpassword";
 
@@ -160,20 +140,16 @@ public void testInvalidUserLogin() {
 
     assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
     assertEquals("Invalid email or password", response.getBody());
-}
+  }
 
-// method for logging in a member
-private ResponseEntity<String> loginUser(String email, String password) {
+  // method for logging in a member
+  private ResponseEntity<String> loginUser(String email, String password) {
     Optional<Member> existingMember = memberRepository.findByEmail(email);
     if (existingMember.isPresent() && existingMember.get().getPassword().equals(password)) {
-        return ResponseEntity.status(HttpStatus.OK).body("Login successful");
+      return ResponseEntity.status(HttpStatus.OK).body("Login successful");
     } else {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
     }
-}
-
-
-  
-
+  }
 
 }
