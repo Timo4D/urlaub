@@ -14,6 +14,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RestController
 public class VacationWishController {
@@ -114,10 +117,14 @@ public class VacationWishController {
         List<Rating> ratings = ratingService.getRatingsByMemberId(member.getId());
         RatingListWrapper ratingListWrapper = new RatingListWrapper(ratings);
 
+        Map<Long, Rating> ratingMap = ratings.stream()
+                .collect(Collectors.toMap(rating -> rating.getVacationWish().getId(), Function.identity()));
+
         mav.addObject("member", member);
         mav.addObject("wishes", wishes);
         mav.addObject("vacation", vacation);
         mav.addObject("ratingListWrapper", ratingListWrapper);
+        mav.addObject("ratingMap", ratingMap);
 
         return mav;
     }

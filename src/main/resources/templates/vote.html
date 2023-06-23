@@ -36,13 +36,14 @@
             </thead>
             <tbody>
             <tr th:each="wish, iterStat : ${wishes}">
+                <td th:text="${wish.id}"></td>
                 <td>
                     <input type="hidden" th:value="${wish.id}" th:name="'ratings[' + ${iterStat.index} + '].vacationWish.id'">
                     <input type="hidden" th:value="${member.id}" th:name="'ratings[' + ${iterStat.index} + '].member.id'">
                     <input type="number" th:name="'ratings[' + ${iterStat.index} + '].score'"
-                           th:if="${#lists.size(ratingListWrapper.ratings) > iterStat.index}" th:value="${ratingListWrapper.ratings[iterStat.index].score}">
+                           th:if="${ratingMap.containsKey(wish.id)}" th:value="${ratingMap.get(wish.id).score}">
                     <input type="number" th:name="'ratings[' + ${iterStat.index} + '].score'" value="0"
-                           th:unless="${#lists.size(ratingListWrapper.ratings) > iterStat.index}">
+                           th:unless="${ratingMap.containsKey(wish.id)}">
                 </td>
                 <td th:text="${wish.location}"></td>
                 <td th:text="${wish.description}"></td>

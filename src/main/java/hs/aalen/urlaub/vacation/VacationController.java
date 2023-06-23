@@ -113,7 +113,7 @@ public class VacationController {
         List<VacationWish> wishes = vacationWishService.getVacationWishByVacationId(vacationId);
         List<VacationWishAndRating> wishAndRatings = new ArrayList<>();
         wishes.forEach(wish -> {
-            int ratingSum = ratingService.getSumOfRatingsForVacationWish(wish.getId());
+            Integer ratingSum = ratingService.getSumOfRatingsForVacationWish(wish.getId());
             wishAndRatings.add(new VacationWishAndRating(wish, ratingSum));
 
         });
