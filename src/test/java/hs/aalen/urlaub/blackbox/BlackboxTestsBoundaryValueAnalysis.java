@@ -45,59 +45,49 @@ public class BlackboxTestsBoundaryValueAnalysis {
     member.setRoles("");
 
     Assertions.assertDoesNotThrow(() -> {
-      // Add member with empty input
-      // No exception should be thrown
       memberService.addMember(member);
     });
 
     Member addedMember = memberService.getMember(member.getId());
-    Assertions.assertNotNull(
-      addedMember,
-      "Member should not be null after adding"
-    );
+    Assertions.assertNotNull(addedMember, "Member should not be null");
   }
 
   @Test // Test adding a member with extremely small input
   void testAddMemberWithMinimumLength() {
     member.setName("A");
     member.setSurname("A");
-    member.setBirthdate(Date.valueOf("2000-01-01"));
-    member.setEmail("a@a.com");
+    member.setBirthdate(Date.valueOf("0001-01-01"));
+    member.setEmail("a@a.de");
     member.setPassword("a");
     member.setRoles("A");
 
     Assertions.assertDoesNotThrow(() -> {
-      // Add member with extremely small input
-      // No exception should be thrown
       memberService.addMember(member);
     });
 
     Member addedMember = memberService.getMember(member.getId());
-    Assertions.assertNotNull(
-      addedMember,
-      "Member should not be null after adding"
-    );
+    Assertions.assertNotNull(addedMember, "Member should not be null");
   }
 
-   // Test adding a member with extremely large input
+  // Test adding a member with extremely large input
   @Test
-    void testAddMemberWithImmenseLength() {
-        String longString = new String(new char[10000000]).replace("\0", "a");
+  void testAddMemberWithImmenseLength() {
+    String longString = new String(new char[10000000]).replace("\0", "a");
 
-        member.setName(longString);
-        member.setSurname(longString);
-        member.setBirthdate(Date.valueOf("2000-01-01"));
-        member.setEmail(longString);
-        member.setPassword(longString);
-        member.setRoles(longString);
+    member.setName(longString);
+    member.setSurname(longString);
+    member.setBirthdate(Date.valueOf("9999-01-01"));
+    member.setEmail(longString);
+    member.setPassword(longString);
+    member.setRoles(longString);
 
-        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
-            // Add member with extremely large input
-            // Expect DataIntegrityViolationException to be thrown
-            memberService.addMember(member);
-        });
-    }
-
+    Assertions.assertThrows(
+      DataIntegrityViolationException.class,
+      () -> {
+        memberService.addMember(member);
+      }
+    );
+  }
 
   @Test // Test adding a vacation with no input
   void testAddVacationWithEmptyInput() {
@@ -107,53 +97,43 @@ public class BlackboxTestsBoundaryValueAnalysis {
     vacation.setIsActive(false);
 
     Assertions.assertDoesNotThrow(() -> {
-      // Add vacation with empty input
-      // No exception should be thrown
       vacationService.addVacation(vacation);
     });
 
     Vacation addedVacation = vacationService.getVacation(vacation.getId());
-    Assertions.assertNotNull(
-      addedVacation,
-      "Vacation should not be null after adding"
-    );
+    Assertions.assertNotNull(addedVacation, "Vacation should not be null");
   }
 
   @Test // Test adding a vacation with extremely small input
   void testAddVacationWithMinimumLength() {
     vacation.setTitle("A");
     vacation.setTimePeriod(1);
-    vacation.setStartDate(Date.valueOf("2023-01-01"));
+    vacation.setStartDate(Date.valueOf("0001-01-01"));
     vacation.setIsActive(true);
 
     Assertions.assertDoesNotThrow(() -> {
-      // Add vacation with extremely small input
-      // No exception should be thrown
       vacationService.addVacation(vacation);
     });
 
     Vacation addedVacation = vacationService.getVacation(vacation.getId());
-    Assertions.assertNotNull(
-      addedVacation,
-      "Vacation should not be null after adding"
-    );
+    Assertions.assertNotNull(addedVacation, "Vacation should not be null");
   }
 
   // Test adding a vacation with extremely large input
   @Test
-void testAddVacationWithImmenseLength() {
+  void testAddVacationWithImmenseLength() {
     String longString = new String(new char[10000000]).replace("\0", "a");
 
     vacation.setTitle(longString);
     vacation.setTimePeriod(100);
-    vacation.setStartDate(Date.valueOf("2023-01-01"));
+    vacation.setStartDate(Date.valueOf("9999-01-01"));
     vacation.setIsActive(true);
 
-    Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
-        // Add vacation with extremely large input
-        // Expect DataIntegrityViolationException to be thrown
+    Assertions.assertThrows(
+      DataIntegrityViolationException.class,
+      () -> {
         vacationService.addVacation(vacation);
-    });
-}
-
+      }
+    );
+  }
 }

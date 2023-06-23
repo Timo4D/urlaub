@@ -35,10 +35,10 @@ public class WhiteboxTests {
   @Test //test the creation of a member
   public void testAddMember() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Doe");
+    member.setName("Test");
+    member.setSurname("Tester");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("john.doe@example.com");
+    member.setEmail("test@test.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -46,10 +46,10 @@ public class WhiteboxTests {
 
     Member savedMember = memberController.getMember(member.getId());
     assertNotNull(savedMember);
-    assertEquals("John", savedMember.getName());
-    assertEquals("Doe", savedMember.getSurname());
+    assertEquals("Test", savedMember.getName());
+    assertEquals("Tester", savedMember.getSurname());
     assertEquals(new Date(2000, 01, 01), savedMember.getBirthdate());
-    assertEquals("john.doe@example.com", savedMember.getEmail());
+    assertEquals("test@test.de", savedMember.getEmail());
     assertEquals("password", savedMember.getPassword());
     assertEquals("ROLE_USER", savedMember.getRoles());
 
@@ -59,26 +59,26 @@ public class WhiteboxTests {
   @Test //test the update of a member
   public void testUpdateMember() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Doe");
+    member.setName("Test");
+    member.setSurname("Tester");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("john.doe@example.com");
+    member.setEmail("test@test.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
     memberController.addMember(member);
 
-    member.setName("Jane");
-    member.setSurname("Smith");
-    member.setEmail("jane.smith@example.com");
+    member.setName("Toast");
+    member.setSurname("Toaster");
+    member.setEmail("toaster@toast.de");
 
     memberController.updateMember(member.getId(), member);
 
     Member updatedMember = memberController.getMember(member.getId());
     assertNotNull(updatedMember);
-    assertEquals("Jane", updatedMember.getName());
-    assertEquals("Smith", updatedMember.getSurname());
-    assertEquals("jane.smith@example.com", updatedMember.getEmail());
+    assertEquals("Toast", updatedMember.getName());
+    assertEquals("Toaster", updatedMember.getSurname());
+    assertEquals("toaster@toast.de", updatedMember.getEmail());
 
     createdMemberId = updatedMember.getId();
   }
@@ -86,10 +86,10 @@ public class WhiteboxTests {
   @Test //test the deletion of a member
   public void testDeleteMember() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Doe");
+    member.setName("Test");
+    member.setSurname("Tester");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("john.doe@example.com");
+    member.setEmail("test@test.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -167,7 +167,6 @@ public class WhiteboxTests {
     vacation.setTitle("Summer Vacation");
     vacation.setTimePeriod(14);
     vacation.setStartDate(new Date(2023, 6, 1));
-  
 
     vacationController.addVacation(vacation);
 

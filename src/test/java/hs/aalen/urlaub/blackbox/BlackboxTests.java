@@ -8,10 +8,8 @@ import hs.aalen.urlaub.member.MemberRepository;
 import hs.aalen.urlaub.security.SecurityController;
 import hs.aalen.urlaub.vacationWish.VacationWishController;
 import jakarta.transaction.Transactional;
-
 import java.sql.Date;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -112,19 +110,21 @@ public class BlackboxTests {
 
   // method for registering a member
   private ResponseEntity<String> registerMember(
-      MemberRepository memberRepository,
-      Member member) {
+    MemberRepository memberRepository,
+    Member member
+  ) {
     Optional<Member> existingMember = memberRepository.findByEmail(
-        member.getEmail());
+      member.getEmail()
+    );
     if (existingMember.isPresent()) {
       return ResponseEntity
-          .status(HttpStatus.CONFLICT)
-          .body("Email already exists");
+        .status(HttpStatus.CONFLICT)
+        .body("Email already exists");
     } else {
       memberRepository.save(member);
       return ResponseEntity
-          .status(HttpStatus.CREATED)
-          .body("User registered successfully");
+        .status(HttpStatus.CREATED)
+        .body("User registered successfully");
     }
   }
 
@@ -145,11 +145,15 @@ public class BlackboxTests {
   // method for logging in a member
   private ResponseEntity<String> loginUser(String email, String password) {
     Optional<Member> existingMember = memberRepository.findByEmail(email);
-    if (existingMember.isPresent() && existingMember.get().getPassword().equals(password)) {
+    if (
+      existingMember.isPresent() &&
+      existingMember.get().getPassword().equals(password)
+    ) {
       return ResponseEntity.status(HttpStatus.OK).body("Login successful");
     } else {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+      return ResponseEntity
+        .status(HttpStatus.UNAUTHORIZED)
+        .body("Invalid email or password");
     }
   }
-
 }
