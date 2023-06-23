@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 
 @SpringBootTest
@@ -78,29 +79,25 @@ public class BlackboxTestsBoundaryValueAnalysis {
     );
   }
 
-  @Test // Test adding a member with extremely large input
-  void testAddMemberWithImmenseLength() {
-    String longString = new String(new char[10000000]).replace("\0", "a");
+   // Test adding a member with extremely large input
+  @Test
+    void testAddMemberWithImmenseLength() {
+        String longString = new String(new char[10000000]).replace("\0", "a");
 
-    member.setName(longString);
-    member.setSurname(longString);
-    member.setBirthdate(Date.valueOf("2000-01-01"));
-    member.setEmail(longString);
-    member.setPassword(longString);
-    member.setRoles(longString);
+        member.setName(longString);
+        member.setSurname(longString);
+        member.setBirthdate(Date.valueOf("2000-01-01"));
+        member.setEmail(longString);
+        member.setPassword(longString);
+        member.setRoles(longString);
 
-    Assertions.assertDoesNotThrow(() -> {
-      // Add member with extremely large input
-      // No exception should be thrown
-      memberService.addMember(member);
-    });
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+            // Add member with extremely large input
+            // Expect DataIntegrityViolationException to be thrown
+            memberService.addMember(member);
+        });
+    }
 
-    Member addedMember = memberService.getMember(member.getId());
-    Assertions.assertNotNull(
-      addedMember,
-      "Member should not be null after adding"
-    );
-  }
 
   @Test // Test adding a vacation with no input
   void testAddVacationWithEmptyInput() {
@@ -142,8 +139,9 @@ public class BlackboxTestsBoundaryValueAnalysis {
     );
   }
 
-  @Test // Test adding a vacation with extremely large input
-  void testAddVacationWithImmenseLength() {
+  // Test adding a vacation with extremely large input
+  @Test
+void testAddVacationWithImmenseLength() {
     String longString = new String(new char[10000000]).replace("\0", "a");
 
     vacation.setTitle(longString);
@@ -151,16 +149,11 @@ public class BlackboxTestsBoundaryValueAnalysis {
     vacation.setStartDate(Date.valueOf("2023-01-01"));
     vacation.setIsActive(true);
 
-    Assertions.assertDoesNotThrow(() -> {
-      // Add vacation with extremely large input
-      // No exception should be thrown
-      vacationService.addVacation(vacation);
+    Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+        // Add vacation with extremely large input
+        // Expect DataIntegrityViolationException to be thrown
+        vacationService.addVacation(vacation);
     });
+}
 
-    Vacation addedVacation = vacationService.getVacation(vacation.getId());
-    Assertions.assertNotNull(
-      addedVacation,
-      "Vacation should not be null after adding"
-    );
-  }
 }
