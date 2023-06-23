@@ -56,8 +56,7 @@
         </table>
         <button type="submit" class="btn btn-primary">Save</button>
         <input type="hidden" th:field="*{id}">
-        <input type="hidden" name="selectedMemberIds" id="selectedMemberIds" th:value="${selectedMemberIds}">
-        <input type="hidden" th:value="${#strings.arrayJoin(vacation.memberAccess.![id], ',')}" id="existingMemberIds">
+        <input type="hidden" name="selectedMemberIds" id="selectedMemberIds" th:value="${#strings.arrayJoin(vacation.memberAccess.![id], ',')}">
     </form>
 
     <hr>
@@ -74,7 +73,7 @@
 <script>
     $(document).ready(function () {
         var selectedMemberIds = [];
-        var existingMemberIds = $('#existingMemberIds').val();
+        var existingMemberIds = $('#selectedMemberIds').val();
         console.log(existingMemberIds);
         console.log(selectedMemberIds);
 
@@ -90,7 +89,7 @@
 
         $('#member-table tbody').on('click', 'tr', function () {
             $(this).toggleClass('table-primary');
-            var memberId = $(this).attr('data-id');
+            var memberId = Number($(this).attr('data-id'));
             console.log(memberId)
             if (selectedMemberIds.includes(memberId)) {
                 // Remove the member id from the array if it's already selected.

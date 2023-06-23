@@ -113,6 +113,14 @@ public class VacationWishController {
         return new RedirectView("/wish");
     }
 
+    @GetMapping("/updateVacation")
+    public ModelAndView updateVacation(@RequestParam Long vacationId) {
+        ModelAndView mav = new ModelAndView("add-vacation-form");
+        mav.addObject("vacation", vacationService.getVacation(vacationId));
+        mav.addObject("members", memberService.getMemberList());
+        return mav;
+    }
+
     @GetMapping("/vote")
     public ModelAndView vote(@RequestParam long vacationId, Principal principal) {
         ModelAndView mav = new ModelAndView("vote");
