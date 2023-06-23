@@ -2,6 +2,7 @@ package hs.aalen.urlaub.rating;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -13,11 +14,11 @@ public interface RatingRepository extends ListCrudRepository<Rating, Long> {
     List<Rating> findByVacationWishId(Long vacationWishId);
 
     @Query("SELECT AVG(r.score) FROM Rating r WHERE r.vacationWish.id = :vacationWishId")
-    Double findAverageRatingByVacationWishId(Long vacationWishId);
+    Double findAverageRatingByVacationWishId(@Param("vacationWishId")Long vacationWishId);
 
     Rating findByMemberIdAndVacationWishId(Long memberId, Long vacationWishId);
 
     // This method can be used to get all the sum of ratings for a specific vacation wish
     @Query("SELECT SUM(r.score) FROM Rating r WHERE r.vacationWish.id = :vacationWishId")
-    Integer findSumOfRatingsByVacationWishId(Long vacationWishId);
+    Integer findSumOfRatingsByVacationWishId(@Param("vacationWishId") Long vacationWishId);
 }
