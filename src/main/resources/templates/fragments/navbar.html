@@ -28,9 +28,10 @@
         <div class="d-none d-md-block">
             <a class="btn btn-light me-2" role="button" th:href="@{/login}" sec:authorize="isAnonymous()">Login</a>
             <a class="btn btn-primary" role="button" th:href="@{/register}" sec:authorize="isAnonymous()">Register</a>
-            <form th:action="@{/logout}" method="post">
+            <form th:action="@{/logout}" method="post" style="display: inline">
                 <input type="submit" value="Logout" class="btn btn-primary" sec:authorize="isAuthenticated()">
             </form>
+            <a th:href="@{/updateMember/{memberName}(memberName=${#authentication.getName()})}" sec:authorize="isAuthenticated()" class="btn btn-secondary">Profile</a>
         </div>
 
     </div>

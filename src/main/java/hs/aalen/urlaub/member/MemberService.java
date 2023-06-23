@@ -58,6 +58,9 @@ public class MemberService {
             if (member.getEmail() != null) {
                 existingMember.setEmail(member.getEmail());
             }
+            if(!member.getPassword().isEmpty()) {
+                existingMember.setPassword(member.getPassword());
+            }
         } else {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,

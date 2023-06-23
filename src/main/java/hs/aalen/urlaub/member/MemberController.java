@@ -103,12 +103,18 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/updateMember")
-    public ModelAndView updateMember(@RequestParam Long memberId) {
+    @GetMapping("/updateMember/{memberName}")
+    public ModelAndView updateMember(@PathVariable String memberName) {
         ModelAndView mav = new ModelAndView("add-member-form");
-        Member member = memberService.getMember(memberId);
+        Member member = memberService.getMember(memberName);
         mav.addObject("member", member);
         return mav;
+    }
+
+    @PostMapping("/updateMember")
+    public RedirectView updateMember(@ModelAttribute Member member) {
+        memberService.updateMember(member.getId(), member);
+        return new RedirectView("/member");
     }
 
     @GetMapping("/deleteMember")

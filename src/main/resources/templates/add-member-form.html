@@ -17,8 +17,11 @@
 <div class="container">
 
   <h2>Add Member</h2>
+  <div class="alert alert-info">
+    After changing your email, you need to log in again.
+  </div>
   <hr>
-  <form th:action="@{/saveMember}" th:object="${member}" method="post">
+  <form th:action="@{/updateMember}" th:object="${member}" method="post">
     <div class="form-floating mb-3">
       <input type="text" id="name" th:field="*{name}" placeholder="name" class="form-control">
       <label for="name">Name</label>
@@ -34,6 +37,11 @@
     <div class="form-floating">
       <input type="email" id="email" th:field="*{email}" placeholder="email" class="form-control col-4 mb-4">
       <label for="email">E-Mail</label>
+    </div>
+
+    <div class="form-floating">
+      <input type="password" id="password" th:field="*{password}" placeholder="email" class="form-control col-4 mb-4">
+      <label for="password">Password</label>
     </div>
 
     <button class="btn btn-primary" type="submit">Save</button>
