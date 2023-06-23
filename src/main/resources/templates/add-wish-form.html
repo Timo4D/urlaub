@@ -41,7 +41,7 @@
             </tr>
             </tbody>
         </table>
-        <input type="hidden" name="vacation" id="selectedVacation">
+        <input type="hidden" name="vacation" id="selectedVacation" th:value="${wish.vacation.id}">
         <button class="btn btn-primary" type="submit">Save</button>
         <input type="hidden" th:field="*{id}">
     </form>
@@ -60,10 +60,22 @@
     $(document).ready(function () {
         var table = $('#vacation-table').DataTable();
 
+        var selectedVacationId = $('#selectedVacation').val();
+
+        //Preselect the vacation if the wish has one
+        $('#vacation-table tbody tr').each(function () {
+            var vacationId = $(this).data('vacation-id');
+            if (vacationId == selectedVacationId) {
+                $(this).addClass('table-primary');
+            }
+        });
+
+        // Handle click event
         $('#vacation-table tbody').on('click', 'tr', function () {
             if ($(this).hasClass('table-primary')) {
                 $(this).removeClass('table-primary');
                 $('#selectedVacation').val(''); // Clear the selected vacation
+
             } else {
                 $('tr.table-primary').removeClass('table-primary');
                 $(this).addClass('table-primary');

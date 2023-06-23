@@ -99,9 +99,11 @@ public class VacationWishController {
     }
 
     @GetMapping("/updateWish")
-    public ModelAndView updateWish(@RequestParam Long wishId) {
+    public ModelAndView updateWish(@RequestParam Long wishId, Principal principal) {
         ModelAndView mav = new ModelAndView("add-wish-form");
+        Member member = memberService.getMember(principal.getName());
         mav.addObject("wish", getVacationWish(wishId));
+        mav.addObject("vacations", vacationService.getVacationByMemberAccessIsContaining(member));
         return mav;
     }
 
