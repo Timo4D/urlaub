@@ -41,7 +41,7 @@
             </tr>
             </tbody>
         </table>
-        <input type="hidden" name="vacation" id="selectedVacation" th:value="${wish.vacation.id}">
+        <input type="hidden" name="vacation" id="selectedVacation" th:value="${wish.vacation?.id ?: ''}">
         <button class="btn btn-primary" type="submit">Save</button>
         <input type="hidden" th:field="*{id}">
     </form>
@@ -69,6 +69,7 @@
                 $(this).addClass('table-primary');
             }
         });
+
 
         // Handle click event
         $('#vacation-table tbody').on('click', 'tr', function () {
