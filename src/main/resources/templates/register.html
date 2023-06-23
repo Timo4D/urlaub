@@ -17,6 +17,12 @@
 <p th:text="${error}"></p>
 
     <div class="container mt-4 mb-4">
+
+        <div class="alert alert-danger">
+            Do not use a real password. This is a demo.
+            Passwords are NOT ENCRYPTED.
+        </div>
+
         <form th:action="@{/saveMember}" method="post" th:object="${member}">
             <div class="form-floating mb-3">
                 <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name">
