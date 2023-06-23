@@ -42,10 +42,10 @@ public class BlackboxTests {
   @Test // test the registration of a member
   public void testRegisterUser() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Doe");
+    member.setName("Test");
+    member.setSurname("Tester");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("john.doe@example.com");
+    member.setEmail("Test@test.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -64,10 +64,10 @@ public class BlackboxTests {
   @Test // test the registration of a member with Umlaut in mail address
   public void testRegisterUser2() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Düöäe");
+    member.setName("Test");
+    member.setSurname("Tüäöst");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("jöhn.döäüe@example.com");
+    member.setEmail("Täst.öäüe@üäö.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -86,10 +86,10 @@ public class BlackboxTests {
   @Test // test login of a member
   public void testUserLogin() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Doe");
+    member.setName("Test");
+    member.setSurname("Tester");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("john.doe@example.com");
+    member.setEmail("test.tester@test.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -130,7 +130,7 @@ public class BlackboxTests {
 
   @Test // Test for login with invalid access code
   public void testInvalidUserLogin() {
-    String email = "invalid@example.com";
+    String email = "invalid@test.de";
     String password = "invalidpassword";
 
     ModelAndView loginMav = securityController.login();
