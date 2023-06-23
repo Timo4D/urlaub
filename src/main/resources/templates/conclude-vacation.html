@@ -49,7 +49,7 @@
         </tbody>
     </table>
 
-    <a th:href="'/concludeVacation/'+${vacation.id}" class="btn btn-primary">Conclude this Vacation</a>
+    <a th:if="${vacation.isActive}" th:href="'/concludeVacation/'+${vacation.id}" class="btn btn-primary">Conclude this Vacation</a>
     <a href="/vacation" class="btn btn-secondary">Back to List</a>
 
 </div>
