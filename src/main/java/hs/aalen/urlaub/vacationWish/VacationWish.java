@@ -4,13 +4,7 @@ import java.util.List;
 
 import hs.aalen.urlaub.rating.Rating;
 import hs.aalen.urlaub.vacation.Vacation;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 @Entity
 public class VacationWish {
@@ -21,22 +15,26 @@ public class VacationWish {
 
     private String location;
     private String description;
+    private Long authorId;
 
     //--------entity-relation-annotation----------------------------------
     @ManyToOne
     @JoinColumn(name = "vacation_id")
     private Vacation vacation;
 
-    @OneToMany(mappedBy = "vacationWish")
+    @OneToMany(mappedBy = "vacationWish", cascade = CascadeType.ALL)
     private List<Rating> ratings;
+
+
 
     public VacationWish() {
     }
 
-    public VacationWish(long id, String location, String description) {
+    public VacationWish(long id, String location, String description, Long authorId) {
         this.id = id;
         this.location = location;
         this.description = description;
+        this.authorId = authorId;
     }
 
     public long getId() {
@@ -69,5 +67,13 @@ public class VacationWish {
 
     public void setVacation(Vacation vacation) {
         this.vacation = vacation;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 }

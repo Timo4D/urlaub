@@ -11,7 +11,7 @@ public class VacationWishAndRating extends VacationWish {
     }
 
     public VacationWishAndRating(VacationWish vacationWish, Integer averageRating) {
-        super(vacationWish.getId(), vacationWish.getLocation(), vacationWish.getDescription());
+        super(vacationWish.getId(), vacationWish.getLocation(), vacationWish.getDescription(), vacationWish.getAuthorId());
         this.averageRating = averageRating;
     }
 

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface VacationWishRepository extends CrudRepository<VacationWish, Long> {
     List<VacationWish> findByVacationId(Long vacationId);
+
+    List<VacationWish> getVacationWishByAuthorId(Long authorId);
 }

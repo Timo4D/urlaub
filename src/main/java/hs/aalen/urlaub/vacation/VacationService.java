@@ -1,5 +1,6 @@
 package hs.aalen.urlaub.vacation;
 
+import hs.aalen.urlaub.member.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,9 @@ public class VacationService {
             vacation.setIsActive(false);
             vacationRepository.save(vacation);
         }
+    }
+
+    public List<Vacation> getVacationByMemberAccessIsContaining(Member member) {
+        return vacationRepository.getVacationByMemberAccessIsContaining(member);
     }
 }

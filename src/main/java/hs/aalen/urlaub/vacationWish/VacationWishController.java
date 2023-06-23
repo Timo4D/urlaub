@@ -73,23 +73,27 @@ public class VacationWishController {
 
     //-------Routes for Thymleaf-------------------------------------
     @GetMapping("/wish")
-    public ModelAndView showVacationWish() {
-        ModelAndView mav = new ModelAndView("lsit-vacationWish");
-        mav.addObject("wishes", getVacationWishList());
+    public ModelAndView showVacationWish(Principal principal) {
+        ModelAndView mav = new ModelAndView("list-vacationWish");
+//        mav.addObject("wishes", getVacationWishList());
+        Long authorId = memberService.getMember(principal.getName()).getId();
+        mav.addObject("wishes", vacationWishService.getVacationWishListToAuthorId(authorId));
         return mav;
     }
 
     @GetMapping("/addWish")
-    public ModelAndView addWish() {
+    public ModelAndView addWish(Principal principal) {
         ModelAndView mav = new ModelAndView("add-wish-form");
         VacationWish newWish = new VacationWish();
+        Member member = memberService.getMember(principal.getName());
         mav.addObject("wish", newWish);
-        mav.addObject("vacations", vacationService.getVacationList());
+        mav.addObject("vacations", vacationService.getVacationByMemberAccessIsContaining(member));
         return mav;
     }
 
     @PostMapping("/saveWish")
-    public RedirectView saveWish(@ModelAttribute VacationWish wish) {
+    public RedirectView saveWish(@ModelAttribute VacationWish wish, Principal principal) {
+        wish.setAuthorId(memberService.getMember(principal.getName()).getId());
         addVacationWish(wish);
         return new RedirectView("/wish");
     }

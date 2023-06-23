@@ -23,7 +23,7 @@ public class Vacation {
     private boolean isActive;
 
     //--------entity-relation-annotation----------------------------------
-    @OneToMany(mappedBy = "vacation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "vacation")
     private final List<VacationWish> wishes = new ArrayList<>();
 
     @ManyToMany()

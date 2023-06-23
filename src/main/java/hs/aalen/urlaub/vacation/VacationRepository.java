@@ -1,5 +1,11 @@
 package hs.aalen.urlaub.vacation;
 
+import hs.aalen.urlaub.member.Member;
 import org.springframework.data.repository.CrudRepository;
 
-public interface VacationRepository extends CrudRepository<Vacation, Long> {}
+import java.util.List;
+
+public interface VacationRepository extends CrudRepository<Vacation, Long> {
+
+    List<Vacation> getVacationByMemberAccessIsContaining(Member member);
+}

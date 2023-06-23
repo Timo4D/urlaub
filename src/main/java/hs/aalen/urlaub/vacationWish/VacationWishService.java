@@ -46,4 +46,8 @@ public class VacationWishService {
     public List<VacationWish> getVacationWishListToVacation(Long vacationId) {
         return vacationWishRepository.findByVacationId(vacationId);
     }
+
+    public List<VacationWish> getVacationWishListToAuthorId(Long authorId) {
+        return vacationWishRepository.getVacationWishByAuthorId(authorId);
+    }
 }

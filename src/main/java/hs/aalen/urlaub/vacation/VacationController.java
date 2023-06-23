@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,9 +72,11 @@ public class VacationController {
 
     //-------Routes for Thymleaf-------------------------------------
     @GetMapping("/vacation")
-    public ModelAndView showVacation() {
+    public ModelAndView showVacation(Principal principal) {
         ModelAndView mav = new ModelAndView("list-vacation");
-        mav.addObject("vacations", getVacationList());
+//        mav.addObject("vacations", getVacationList());
+        Member member = memberService.getMember(principal.getName());
+        mav.addObject("vacations", vacationService.getVacationByMemberAccessIsContaining(member));
         return mav;
     }
 
