@@ -32,7 +32,7 @@ public class VacationWishController {
     @Autowired
     RatingService ratingService;
 
-    //-------URL mapping-------------------------------------
+    // -------URL mapping-------------------------------------
     @GetMapping("/api/vacationWish")
     public List<VacationWish> getVacationWishList() {
         return vacationWishService.getVacationWishList();
@@ -56,8 +56,7 @@ public class VacationWishController {
     @PutMapping("/api/vacationWish/{id}")
     public void updateVacationWish(
             @PathVariable long id,
-            @RequestBody VacationWish vacationWish
-    ) {
+            @RequestBody VacationWish vacationWish) {
         vacationWishService.updateVacationWish(id, vacationWish);
     }
 
@@ -71,11 +70,11 @@ public class VacationWishController {
         return vacationWishService.getVacationWishListToVacation(vacationId);
     }
 
-    //-------Routes for Thymleaf-------------------------------------
+    // -------Routes for Thymleaf-------------------------------------
     @GetMapping("/wish")
     public ModelAndView showVacationWish(Principal principal) {
         ModelAndView mav = new ModelAndView("list-vacationWish");
-//        mav.addObject("wishes", getVacationWishList());
+        // mav.addObject("wishes", getVacationWishList());
         Long authorId = memberService.getMember(principal.getName()).getId();
         mav.addObject("wishes", vacationWishService.getVacationWishListToAuthorId(authorId));
         return mav;
@@ -142,5 +141,5 @@ public class VacationWishController {
 
         return mav;
     }
-    //------------------------------------------------------
+    // ------------------------------------------------------
 }
