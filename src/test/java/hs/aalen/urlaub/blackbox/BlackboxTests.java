@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import hs.aalen.urlaub.member.Member;
 import hs.aalen.urlaub.member.MemberController;
 import hs.aalen.urlaub.member.MemberRepository;
+import hs.aalen.urlaub.rating.RatingController;
 import hs.aalen.urlaub.security.SecurityController;
+import hs.aalen.urlaub.vacation.VacationController;
 import hs.aalen.urlaub.vacationWish.VacationWishController;
 import jakarta.transaction.Transactional;
-
 import java.sql.Date;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.web.servlet.ModelAndView;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -29,23 +30,49 @@ public class BlackboxTests {
   VacationWishController vacationWishController = new VacationWishController();
 
   @Autowired
+  VacationController vacationController = new VacationController();
+
+  @Autowired
   private MemberController memberController = new MemberController();
 
   @Autowired
   private SecurityController securityController = new SecurityController();
 
   @Autowired
+  private RatingController ratingController = new RatingController();
+
+  @Autowired
   private MemberRepository memberRepository;
 
   private Long createdId;
 
+  @Test
+  public void memberContextLoads() throws Exception {
+    assertThat(memberController).isNotNull();
+  }
+
+  @Test
+  public void vacationContextLoads() throws Exception {
+    assertThat(vacationController).isNotNull();
+  }
+
+  @Test
+  public void vacationControllerLoads() throws Exception {
+    assertThat(vacationWishController).isNotNull();
+  }
+
+  @Test
+  public void ratingControllerLoads() throws Exception {
+    assertThat(ratingController).isNotNull();
+  }
+
   @Test // test the registration of a member
   public void testRegisterUser() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Doe");
+    member.setName("Test");
+    member.setSurname("Tester");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("john.doe@example.com");
+    member.setEmail("Test@test.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -64,10 +91,10 @@ public class BlackboxTests {
   @Test // test the registration of a member with Umlaut in mail address
   public void testRegisterUser2() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Düöäe");
+    member.setName("Test");
+    member.setSurname("Tüäöst");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("jöhn.döäüe@example.com");
+    member.setEmail("Täst.öäüe@üäö.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -86,10 +113,10 @@ public class BlackboxTests {
   @Test // test login of a member
   public void testUserLogin() {
     Member member = new Member();
-    member.setName("John");
-    member.setSurname("Doe");
+    member.setName("Test");
+    member.setSurname("Tester");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("john.doe@example.com");
+    member.setEmail("test.tester@test.de");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -130,7 +157,7 @@ public class BlackboxTests {
 
   @Test // Test for login with invalid access code
   public void testInvalidUserLogin() {
-    String email = "invalid@example.com";
+    String email = "invalid@test.de";
     String password = "invalidpassword";
 
     ModelAndView loginMav = securityController.login();
@@ -145,11 +172,13 @@ public class BlackboxTests {
   // method for logging in a member
   private ResponseEntity<String> loginUser(String email, String password) {
     Optional<Member> existingMember = memberRepository.findByEmail(email);
-    if (existingMember.isPresent() && existingMember.get().getPassword().equals(password)) {
+    if (existingMember.isPresent() &&
+        existingMember.get().getPassword().equals(password)) {
       return ResponseEntity.status(HttpStatus.OK).body("Login successful");
     } else {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+      return ResponseEntity
+          .status(HttpStatus.UNAUTHORIZED)
+          .body("Invalid email or password");
     }
   }
-
 }

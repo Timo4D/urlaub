@@ -11,18 +11,12 @@ import hs.aalen.urlaub.vacation.VacationController;
 import hs.aalen.urlaub.vacationWish.VacationWish;
 import hs.aalen.urlaub.vacationWish.VacationWishController;
 import java.sql.Date;
-
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 
 @SpringBootTest
-@Transactional
-@Rollback
-
 public class WhiteboxTests {
 
   @Autowired
@@ -41,10 +35,10 @@ public class WhiteboxTests {
   @Test //test the creation of a member
   public void testAddMember() {
     Member member = new Member();
-    member.setName("Herr");
-    member.setSurname("Test");
+    member.setName("John");
+    member.setSurname("Doe");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("Test@test.de");
+    member.setEmail("john.doe@example.com");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
@@ -52,10 +46,10 @@ public class WhiteboxTests {
 
     Member savedMember = memberController.getMember(member.getId());
     assertNotNull(savedMember);
-    assertEquals("Herr", savedMember.getName());
-    assertEquals("Test", savedMember.getSurname());
+    assertEquals("John", savedMember.getName());
+    assertEquals("Doe", savedMember.getSurname());
     assertEquals(new Date(2000, 01, 01), savedMember.getBirthdate());
-    assertEquals("Test@test.de", savedMember.getEmail());
+    assertEquals("john.doe@example.com", savedMember.getEmail());
     assertEquals("password", savedMember.getPassword());
     assertEquals("ROLE_USER", savedMember.getRoles());
 
@@ -65,26 +59,26 @@ public class WhiteboxTests {
   @Test //test the update of a member
   public void testUpdateMember() {
     Member member = new Member();
-    member.setName("Herr");
-    member.setSurname("Test");
+    member.setName("John");
+    member.setSurname("Doe");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("Test@test.de");
+    member.setEmail("john.doe@example.com");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
     memberController.addMember(member);
 
-    member.setName("Frau");
-    member.setSurname("Test");
-    member.setEmail("Test@test.de");
+    member.setName("Jane");
+    member.setSurname("Smith");
+    member.setEmail("jane.smith@example.com");
 
     memberController.updateMember(member.getId(), member);
 
     Member updatedMember = memberController.getMember(member.getId());
     assertNotNull(updatedMember);
-    assertEquals("Frau", updatedMember.getName());
-    assertEquals("Test", updatedMember.getSurname());
-    assertEquals("Test@test.de", updatedMember.getEmail());
+    assertEquals("Jane", updatedMember.getName());
+    assertEquals("Smith", updatedMember.getSurname());
+    assertEquals("jane.smith@example.com", updatedMember.getEmail());
 
     createdMemberId = updatedMember.getId();
   }
@@ -92,10 +86,10 @@ public class WhiteboxTests {
   @Test //test the deletion of a member
   public void testDeleteMember() {
     Member member = new Member();
-    member.setName("Herr");
-    member.setSurname("Test");
+    member.setName("John");
+    member.setSurname("Doe");
     member.setBirthdate(new Date(2000, 01, 01));
-    member.setEmail("Test@test.de");
+    member.setEmail("john.doe@example.com");
     member.setPassword("password");
     member.setRoles("ROLE_USER");
 
