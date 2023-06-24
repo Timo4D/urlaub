@@ -87,7 +87,7 @@ public class VacationWishController {
         VacationWish newWish = new VacationWish();
         Member member = memberService.getMember(principal.getName());
         mav.addObject("wish", newWish);
-        mav.addObject("vacations", vacationService.getVacationByMemberAccessIsContaining(member));
+        mav.addObject("vacations", vacationService.getVacationByMemberAccess(member));
         return mav;
     }
 
@@ -103,7 +103,7 @@ public class VacationWishController {
         ModelAndView mav = new ModelAndView("add-wish-form");
         Member member = memberService.getMember(principal.getName());
         mav.addObject("wish", getVacationWish(wishId));
-        mav.addObject("vacations", vacationService.getVacationByMemberAccessIsContaining(member));
+        mav.addObject("vacations", vacationService.getVacationByMemberAccess(member));
         return mav;
     }
 

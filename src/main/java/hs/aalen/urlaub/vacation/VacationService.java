@@ -46,7 +46,7 @@ public class VacationService {
         }
     }
 
-    public List<Vacation> getVacationByMemberAccessIsContaining(Member member) {
-        return vacationRepository.getVacationByMemberAccessIsContaining(member);
+    public List<Vacation> getVacationByMemberAccess(Member member) {
+        return vacationRepository.getVacationByMemberAccess(member);
     }
 }

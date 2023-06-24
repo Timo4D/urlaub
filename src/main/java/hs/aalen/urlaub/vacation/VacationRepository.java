@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface VacationRepository extends CrudRepository<Vacation, Long> {
 
-    List<Vacation> getVacationByMemberAccessIsContaining(Member member);
+    List<Vacation> getVacationByMemberAccess(Member member);
 }

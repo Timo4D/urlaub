@@ -76,7 +76,7 @@ public class VacationController {
         ModelAndView mav = new ModelAndView("list-vacation");
 //        mav.addObject("vacations", getVacationList());
         Member member = memberService.getMember(principal.getName());
-        mav.addObject("vacations", vacationService.getVacationByMemberAccessIsContaining(member));
+        mav.addObject("vacations", vacationService.getVacationByMemberAccess(member));
         return mav;
     }
 
