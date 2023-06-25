@@ -74,18 +74,23 @@ public class VacationController {
     @GetMapping("/vacation")
     public ModelAndView showVacation(Principal principal) {
         ModelAndView mav = new ModelAndView("list-vacation");
-//        mav.addObject("vacations", getVacationList());
+
         Member member = memberService.getMember(principal.getName());
-        mav.addObject("vacations", vacationService.getVacationByMemberAccess(member));
+        List<Vacation> vacations = vacationService.getVacationByMemberAccess(member);
+
+        mav.addObject("vacations", vacations);
         return mav;
     }
 
     @GetMapping("/addVacation")
     public ModelAndView addVacation() {
         ModelAndView mav = new ModelAndView("add-vacation-form");
+
         Vacation newVacation = new Vacation();
+        List<Member> members = memberService.getMemberList();
+
         mav.addObject("vacation", newVacation);
-        mav.addObject("members", memberService.getMemberList());
+        mav.addObject("members", members);
         return mav;
     }
 
@@ -112,7 +117,8 @@ public class VacationController {
     @GetMapping("/conclude")
     public ModelAndView conclude(@RequestParam Long vacationId) {
         ModelAndView mav = new ModelAndView("conclude-vacation");
-        mav.addObject("vacation", getVacation(vacationId));
+
+        Vacation vacation = vacationService.getVacation(vacationId);
         List<VacationWish> wishes = vacationWishService.getVacationWishByVacationId(vacationId);
         List<VacationWishAndRating> wishAndRatings = new ArrayList<>();
         wishes.forEach(wish -> {
@@ -120,6 +126,8 @@ public class VacationController {
             wishAndRatings.add(new VacationWishAndRating(wish, ratingSum));
 
         });
+
+        mav.addObject("vacation", vacation);
         mav.addObject("wishes", wishAndRatings);
 
         return mav;

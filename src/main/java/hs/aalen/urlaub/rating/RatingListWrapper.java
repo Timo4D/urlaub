@@ -3,6 +3,7 @@ package hs.aalen.urlaub.rating;
 import java.util.ArrayList;
 import java.util.List;
 
+//Needed for JSON serialization
 public class RatingListWrapper {
     private List<Rating> ratings;
 

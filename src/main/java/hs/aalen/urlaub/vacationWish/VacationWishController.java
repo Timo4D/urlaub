@@ -74,19 +74,24 @@ public class VacationWishController {
     @GetMapping("/wish")
     public ModelAndView showVacationWish(Principal principal) {
         ModelAndView mav = new ModelAndView("list-vacationWish");
-        // mav.addObject("wishes", getVacationWishList());
+
         Long authorId = memberService.getMember(principal.getName()).getId();
-        mav.addObject("wishes", vacationWishService.getVacationWishListToAuthorId(authorId));
+        List<VacationWish> wishes = vacationWishService.getVacationWishListToAuthorId(authorId);
+
+        mav.addObject("wishes", wishes);
         return mav;
     }
 
     @GetMapping("/addWish")
     public ModelAndView addWish(Principal principal) {
         ModelAndView mav = new ModelAndView("add-wish-form");
+
         VacationWish newWish = new VacationWish();
         Member member = memberService.getMember(principal.getName());
+        List<Vacation> vacations= vacationService.getVacationByMemberAccess(member);
+
         mav.addObject("wish", newWish);
-        mav.addObject("vacations", vacationService.getVacationByMemberAccess(member));
+        mav.addObject("vacations", vacations);
         return mav;
     }
 
@@ -100,9 +105,13 @@ public class VacationWishController {
     @GetMapping("/updateWish")
     public ModelAndView updateWish(@RequestParam Long wishId, Principal principal) {
         ModelAndView mav = new ModelAndView("add-wish-form");
+
         Member member = memberService.getMember(principal.getName());
-        mav.addObject("wish", getVacationWish(wishId));
-        mav.addObject("vacations", vacationService.getVacationByMemberAccess(member));
+        List<Vacation> vacations = vacationService.getVacationByMemberAccess(member);
+        VacationWish wish = getVacationWish(wishId);
+
+        mav.addObject("wish", wish);
+        mav.addObject("vacations", vacations);
         return mav;
     }
 
@@ -115,8 +124,12 @@ public class VacationWishController {
     @GetMapping("/updateVacation")
     public ModelAndView updateVacation(@RequestParam Long vacationId) {
         ModelAndView mav = new ModelAndView("add-vacation-form");
-        mav.addObject("vacation", vacationService.getVacation(vacationId));
-        mav.addObject("members", memberService.getMemberList());
+
+        Vacation vacation = vacationService.getVacation(vacationId);
+        List<Member> members = memberService.getMemberList();
+
+        mav.addObject("vacation", vacation);
+        mav.addObject("members", members);
         return mav;
     }
 

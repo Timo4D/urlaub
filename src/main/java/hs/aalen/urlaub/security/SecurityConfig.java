@@ -1,5 +1,6 @@
 package hs.aalen.urlaub.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -16,6 +17,8 @@ public class SecurityConfig {
 
     private final JpaUserDetailsService myMemberDetailsService;
 
+
+
     public SecurityConfig(JpaUserDetailsService myMemberDetailsService) {
         this.myMemberDetailsService = myMemberDetailsService;
     }
@@ -26,14 +29,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/page/login").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/saveMember").permitAll()
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(myMemberDetailsService)
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/",true)
+                        .loginPage("/page/login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll())
                 .build();
     }

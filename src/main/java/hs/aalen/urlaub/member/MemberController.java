@@ -2,6 +2,7 @@ package hs.aalen.urlaub.member;
 
 import hs.aalen.urlaub.vacation.Vacation;
 import hs.aalen.urlaub.vacation.VacationService;
+import hs.aalen.urlaub.vacationWish.VacationWish;
 import hs.aalen.urlaub.vacationWish.VacationWishService;
 
 import java.util.ArrayList;
@@ -75,7 +76,9 @@ public class MemberController {
     @GetMapping("/member")
     public ModelAndView showMember() {
         ModelAndView mav = new ModelAndView("list-member");
+
         List<Member> list = memberService.getMemberList();
+
         mav.addObject("members", list);
         return mav;
     }
@@ -83,8 +86,11 @@ public class MemberController {
     @GetMapping("/addMember")
     public ModelAndView addMember() {
         ModelAndView mav = new ModelAndView("add-member-form");
+
         Member newMember = new Member();
-        mav.addObject("wishes", wishService.getVacationWishList());
+        List<VacationWish> wishes = wishService.getVacationWishList();
+
+        mav.addObject("wishes", wishes);
         mav.addObject("member", newMember);
         return mav;
     }
@@ -92,6 +98,7 @@ public class MemberController {
     @PostMapping("/saveMember")
     public ModelAndView saveMember(@ModelAttribute Member member) {
         Optional<Member> existingMember = memberRepository.findByEmail(member.getEmail());
+
         if (existingMember.isPresent()) {
             ModelAndView mav = new ModelAndView("register");
             mav.addObject("error", "Email already exists");
@@ -106,7 +113,9 @@ public class MemberController {
     @GetMapping("/updateMember/{memberName}")
     public ModelAndView updateMember(@PathVariable String memberName) {
         ModelAndView mav = new ModelAndView("add-member-form");
+
         Member member = memberService.getMember(memberName);
+
         mav.addObject("member", member);
         return mav;
     }
