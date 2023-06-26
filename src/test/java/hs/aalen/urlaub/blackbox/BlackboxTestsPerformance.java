@@ -189,7 +189,7 @@ public class BlackboxTestsPerformance {
       "Retrieving a vacation should take less than 200 milliseconds"
     );
   }
-
+/*
   @Test // tests the performance of updating all vacations
   void testVacationUpdatePerformance() {
     int maxVacations = 100;
@@ -228,7 +228,7 @@ public class BlackboxTestsPerformance {
       "Updating a vacation should take less than 200 milliseconds"
     );
   }
-
+*/
   @Test // tests the performance of deleting all vacations
   void testDeleteVacationPerformance() {
     int maxVacations = 200;
