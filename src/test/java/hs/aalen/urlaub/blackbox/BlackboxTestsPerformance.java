@@ -315,7 +315,7 @@ public class BlackboxTestsPerformance {
       retrievedWish,
       "Retrieved vacation wish should not be null"
     );
-    Assertions.assertFalse(
+    Assertions.assertTrue(
       endTime - startTime < 200,
       "Retrieving a vacation wish should take less than 200 milliseconds"
     );
